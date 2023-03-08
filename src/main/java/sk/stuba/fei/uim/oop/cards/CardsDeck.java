@@ -43,4 +43,14 @@ public class CardsDeck {
     public ArrayList<Card> getCards() {
         return this.cards;
     }
+
+    public Card getCard(int index) {
+        Card cardToReturn = this.getCards().get(index);
+        this.getCards().remove(index);
+        return cardToReturn;
+    }
+
+    public int getSize() {
+        return cards.size();
+    }
 }
