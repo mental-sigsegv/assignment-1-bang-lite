@@ -8,6 +8,10 @@ public abstract class Card {
         this.color = color;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
 //    public abstract boolean canPlay();
 //    public abstract boolean canPlay(int index);
 }

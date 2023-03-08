@@ -47,4 +47,8 @@ public class Player {
     public void removeCards() {
         this.cards.clear();
     }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
 }
