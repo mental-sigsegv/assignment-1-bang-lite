@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.cards;
 
+import sk.stuba.fei.uim.oop.player.Player;
+
 public abstract class Card {
     private String name;
     private String color;
@@ -14,4 +16,5 @@ public abstract class Card {
 
 //    public abstract boolean canPlay();
 //    public abstract boolean canPlay(int index);
+    public abstract void playCard(Player player);
 }

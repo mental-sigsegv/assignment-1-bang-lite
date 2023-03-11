@@ -3,6 +3,8 @@ package sk.stuba.fei.uim.oop.player;
 import sk.stuba.fei.uim.oop.cards.CardsDeckTrash;
 import sk.stuba.fei.uim.oop.cards.Card;
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class Player {
     private String name;
     private int health;
@@ -68,5 +70,25 @@ public class Player {
         cardToRemove = this.cards.get(index);
         this.cards.remove(index);
         return cardToRemove;
+    }
+
+    public boolean hasCard(Card card) {
+        for (Card c : cards) {
+            if (Objects.equals(c.getName(), card.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getCardIndex(Card card) {
+        int counter = 0;
+        for (Card c : cards) {
+            if (Objects.equals(c.getName(), card.getName())) {
+                return counter;
+            }
+            counter++;
+        }
+        return -1;
     }
 }

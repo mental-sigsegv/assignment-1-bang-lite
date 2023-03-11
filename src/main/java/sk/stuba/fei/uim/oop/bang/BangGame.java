@@ -1,20 +1,18 @@
 package sk.stuba.fei.uim.oop.bang;
 
-import sk.stuba.fei.uim.oop.cards.Card;
-import sk.stuba.fei.uim.oop.cards.CardsDeck;
+import sk.stuba.fei.uim.oop.cards.*;
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.cards.CardsDeckTrash;
 
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 import java.util.ArrayList;
 
-public class Bang {
+public class BangGame {
     private CardsDeck cardsDeck;
     private CardsDeckTrash cardsDeckTrash;
     private ArrayList<Player> players;
     private int playerCurrentIndex = 0;
-    public Bang() {
+    public BangGame() {
         System.out.println("Welcome to FEI Bang!");
 
         // Get number of players
@@ -32,8 +30,10 @@ public class Bang {
             this.players.add(new Player(ZKlavesnice.readString("*** Enter name for PLAYER " + (i+1) + " : ***")));
         }
 
+
+        this.test();
         // Start game
-        this.startGame();
+//        this.startGame();
 
     }
     private void startGame() {
@@ -82,5 +82,29 @@ public class Bang {
             }
         }
         return null;
+    }
+
+    private void makeTurn() {
+
+    }
+
+    private void test() {
+        Player p1 = this.players.get(0);
+        Player p2 = this.players.get(1);
+
+        p1.addCard(new Bang());
+        p1.addCard(new Bang());
+
+        p2.addCard(new Missed());
+
+
+        p1.getCards().get(0).playCard(p2);
+        p1.printCards();
+        p2.printCards();
+
+        p1.getCards().get(0).playCard(p2);
+        p1.printCards();
+        System.out.println(p2.getHealth());
+
     }
 }
