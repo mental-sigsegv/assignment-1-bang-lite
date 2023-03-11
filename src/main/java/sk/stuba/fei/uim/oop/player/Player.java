@@ -35,6 +35,9 @@ public class Player {
     public void addHealth() {
         this.health++;
     }
+    public int getHealth() {
+        return this.health;
+    }
 
     public ArrayList<Card> getCards() {
         return this.cards;
