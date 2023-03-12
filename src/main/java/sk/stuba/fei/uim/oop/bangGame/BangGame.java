@@ -60,7 +60,8 @@ public class BangGame {
                 // TODO remove cards
                 players.remove(currentPlayer);
                 System.out.println(currentPlayer.getName() + " is dead!");
-                this.incCurrentPlayerIndex();
+//                this.incCurrentPlayerIndex();
+                playerCurrentIndex %= players.size();  // TODO fix name
                 continue;
             }
 
@@ -175,17 +176,22 @@ public class BangGame {
         }
     }
 
+    // TODO implement currentPlayer.checkDynamite();
     private void checkDynamite(Player currentPlayer) {
-        if (currentPlayer.hasActiveCard(new Dynamite())) {
+        Card dynamite = new Dynamite();
+        if (currentPlayer.hasActiveCard(dynamite)) {
             if (!this.dynamiteChance()) {
                 currentPlayer.removeHealth(3);
-                currentPlayer.removeActiveCard(new Dynamite());
+                currentPlayer.removeActiveCard(dynamite);
             }
-            // TODO move dynamite to previous player
+            // TODO move dynamite to previous player, play card dynamite, implement % chance in dynamite class
+            // currentPlayer.getCard -> dynamite.play()
         }
     }
 
+    // TODO implement currentPlayer.checkPrison();
     private void checkPrison(Player currentPlayer) {
+        Card prison = new Prison();
         if (currentPlayer.hasActiveCard(new Prison())) {
             if (!this.prisonChance()) {
                 new Prison();

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class Indians extends Card {
     private static final String CARD_NAME = "Indians";
     private static final String CARD_COLOR = "Brown";
-
+    private static final boolean CAN_BE_PLAYED_ON_SELF = true;
     public Indians() {
-        super(CARD_NAME, CARD_COLOR, false);
+        super(CARD_NAME, CARD_COLOR, CAN_BE_PLAYED_ON_SELF);
     }
 
     @Override

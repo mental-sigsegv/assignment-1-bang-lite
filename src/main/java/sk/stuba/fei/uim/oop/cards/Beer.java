@@ -7,9 +7,10 @@ import java.util.ArrayList;
 public class Beer extends Card {
     private static final String CARD_NAME = "Beer";
     private static final String CARD_COLOR = "Brown";
+    private static final boolean CAN_BE_PLAYED_ON_SELF = true;
 
     public Beer() {
-        super(CARD_NAME, CARD_COLOR);
+        super(CARD_NAME, CARD_COLOR, CAN_BE_PLAYED_ON_SELF);
     }
 
     @Override

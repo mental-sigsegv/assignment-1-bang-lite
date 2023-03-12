@@ -7,9 +7,10 @@ import java.util.ArrayList;
 public class Dynamite extends Card {
     private static final String CARD_NAME = "Dynamite";
     private static final String CARD_COLOR = "Blue";
+    private static final boolean CAN_BE_PLAYED_ON_SELF = false;
 
     public Dynamite() {
-        super(CARD_NAME, CARD_COLOR);
+        super(CARD_NAME, CARD_COLOR, CAN_BE_PLAYED_ON_SELF);
     }
 
     @Override
