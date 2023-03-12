@@ -6,23 +6,23 @@ import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-import static java.lang.Math.max;
 import static java.lang.Math.random;
 
 public class BangGame {
-    private final int MIN_PLAYERS = 2;
-    private final int MAX_PLAYERS = 4;
 
     private CardDeck cardDeck;
     private CardDeck cardTrashDeck;
-    private ArrayList<Player> players;
+    private final ArrayList<Player> players;
     private int playerCurrentIndex = 0;
     public BangGame() {
         System.out.println("Welcome to FEI Bang!");
 
         // Get number of players
         int numOfPlayers = 0;
+        int MIN_PLAYERS = 2;
+        int MAX_PLAYERS = 4;
         while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
             numOfPlayers = ZKlavesnice.readInt("*** Enter number of players (2-4): ***");
             if (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
@@ -31,7 +31,7 @@ public class BangGame {
         }
 
         // Set players name
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++) {
             this.players.add(new Player(ZKlavesnice.readString("*** Enter name for PLAYER " + (i+1) + " : ***")));
         }
@@ -73,7 +73,7 @@ public class BangGame {
         // Select card to play
 
         System.out.println("Game finished!");
-        System.out.println("Thw winner is " + getWinner().getName() + "! Congratulation!");
+        System.out.println("Thw winner is " + Objects.requireNonNull(getWinner()).getName() + "! Congratulation!");
     }
 
     private int getAlivePlayers() {
@@ -116,7 +116,7 @@ public class BangGame {
     }
 
     private void playCards(Player currentPlayer) {
-        int cardIndex = -1;
+        int cardIndex;
         int maxCardIndex = currentPlayer.getPlayableCards().size();
         while (maxCardIndex > 0) {
             currentPlayer.printPlayableCards();
@@ -132,8 +132,11 @@ public class BangGame {
             ArrayList<Card> cardsToRemove;
             if (!cardToPlay.getUseOnSelf()) {
                 Player otherPlayer = chooseOtherPlayer(currentPlayer);
+                cardsToRemove = cardToPlay.playCard(otherPlayer);
+            } else {
+                cardsToRemove = cardToPlay.playCard(currentPlayer);
             }
-            cardsToRemove = cardToPlay.playCard(currentPlayer);
+
             for (Card cardToRemove : cardsToRemove) {
                 currentPlayer.removeCard(cardToRemove);
                 this.cardTrashDeck.addCard(cardToRemove);
@@ -165,7 +168,7 @@ public class BangGame {
     private void throwAwayExcessiveCards(Player currentPlayer) {
         int numberOfCards = currentPlayer.getCards().size();
         int maxNumberOfCards = currentPlayer.getHealth();
-        int indexOfCard = 0;
+        int indexOfCard;
         Card thrownCard;
 
         if (numberOfCards > maxNumberOfCards) {
@@ -198,7 +201,8 @@ public class BangGame {
     private void checkPrison(Player currentPlayer) {
         if (currentPlayer.hasActiveCard(new Prison())) {
             if (!this.prisonChance()) {
-                return;
+                new Prison();
+                // Do something
             }
 
             // TODO remove card and add to trash deck

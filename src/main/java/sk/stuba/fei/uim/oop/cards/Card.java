@@ -1,14 +1,12 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Card {
-    private String name;
-    private String color;
-    private boolean useOnSelf;
+    private final String name;
+    private final String color;
+    private final boolean useOnSelf;
     public Card(String name, String color) {
         this.name = name;
         this.color = color;
@@ -25,6 +23,10 @@ public abstract class Card {
     }
     public boolean getUseOnSelf() {
         return this.useOnSelf;
+    }
+
+    public String getColor() {
+        return this.color;
     }
     public abstract boolean canPlay();
 //    public abstract boolean canPlay(int index);

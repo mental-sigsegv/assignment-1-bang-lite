@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardDeck {
-    private ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
     // TODO remove this, instead use 1 constructor and decide based on argument
     public CardDeck(int i) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
 
         cards.add(new Dynamite());
         cards.add(new Barrel());
@@ -25,10 +25,10 @@ public class CardDeck {
 
     }
     public CardDeck(String string) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
     }
     public CardDeck() {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
 
         cards.add(new Dynamite());
 

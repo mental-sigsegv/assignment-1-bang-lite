@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Player {
-    private String name;
+    private final String name;
     private int health;
-    private ArrayList<Card> cards;
-    private ArrayList<Card> activeCards;
+    private final ArrayList<Card> cards;
+    private final ArrayList<Card> activeCards;
 
     public Player(String name) {
         this.name = name;
         this.health = 4;
-        this.cards = new ArrayList<Card>();
-        this.activeCards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
+        this.activeCards = new ArrayList<>();
     }
 
     public String getName() {
@@ -26,9 +26,6 @@ public class Player {
         return this.health > 0;
     }
 
-    public boolean hasCardsOverLimit() {
-        return this.cards.size() > this.health;
-    }
     public void removeHealth() {
         this.health--;
     }
@@ -125,7 +122,7 @@ public class Player {
     }
 
     public ArrayList<Card> getPlayableCards() {
-        ArrayList<Card> playableCards = new ArrayList<Card>();
+        ArrayList<Card> playableCards = new ArrayList<>();
         for (Card card : cards) {
             if (card.canPlay()) {
                 playableCards.add(card);
