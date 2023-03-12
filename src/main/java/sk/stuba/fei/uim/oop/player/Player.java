@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.player;
 
-import sk.stuba.fei.uim.oop.cards.CardsDeckTrash;
 import sk.stuba.fei.uim.oop.cards.Card;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -33,6 +32,9 @@ public class Player {
     public void removeHealth() {
         this.health--;
     }
+    public void removeHealth(int damage) {
+        this.health -= damage;
+    }
 
     public void addHealth() {
         this.health++;
@@ -46,11 +48,13 @@ public class Player {
     }
 
     public void printCards() {
-        System.out.print(this.name + "'s cards are: [");
+        int count = 1;
+        System.out.println(this.name + "'s cards are:");
         for (Card card : cards) {
-            System.out.print(card.getName() + ", ");
+            System.out.println(count + ". " + card.getName());
+            count++;
         }
-        System.out.print("]\n");
+        System.out.println("\n");
     }
 
     public ArrayList<Card> getActiveCards() {

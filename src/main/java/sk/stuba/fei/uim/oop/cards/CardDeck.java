@@ -1,15 +1,16 @@
 package sk.stuba.fei.uim.oop.cards;
 
-import sk.stuba.fei.uim.oop.cards.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
-public class CardsDeck {
+public class CardDeck {
     private ArrayList<Card> cards;
 
-    public CardsDeck() {
+    // TODO remove this, instead use 1 constructor and decide based on argument
+    public CardDeck(String string) {
+        cards = new ArrayList<Card>();
+    }
+    public CardDeck() {
         cards = new ArrayList<Card>();
 
         cards.add(new Dynamite());
@@ -46,8 +47,24 @@ public class CardsDeck {
 
     public Card getCard(int index) {
         Card cardToReturn = this.getCards().get(index);
-        this.getCards().remove(index);
+        this.removeCard(index);
         return cardToReturn;
+    }
+
+    public void addCard(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public void removeCard(int index) {
+        this.cards.remove(index);
+    }
+
+    public void removeCards() {
+        this.cards.clear();
     }
 
     public int getSize() {
