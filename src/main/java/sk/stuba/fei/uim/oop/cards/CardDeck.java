@@ -7,6 +7,23 @@ public class CardDeck {
     private ArrayList<Card> cards;
 
     // TODO remove this, instead use 1 constructor and decide based on argument
+    public CardDeck(int i) {
+        cards = new ArrayList<Card>();
+
+        cards.add(new Dynamite());
+        cards.add(new Barrel());
+        cards.add(new Indians());
+        cards.add(new Missed());
+        cards.add(new Missed());
+        cards.add(new Prison());
+        cards.add(new Beer());
+        cards.add(new Beer());
+        cards.add(new Beer());
+        cards.add(new Beer());
+        cards.add(new CatBalou());
+        cards.add(new StageCoach());
+
+    }
     public CardDeck(String string) {
         cards = new ArrayList<Card>();
     }
@@ -69,5 +86,12 @@ public class CardDeck {
 
     public int getSize() {
         return cards.size();
+    }
+
+    public void printCards(String name) {
+        System.out.println(name + " deck");
+        for (Card card : cards) {
+            System.out.println(card.getName());
+        }
     }
 }

@@ -1,7 +1,8 @@
 package sk.stuba.fei.uim.oop.cards;
 
-import sk.stuba.fei.uim.oop.cards.Card;
 import sk.stuba.fei.uim.oop.player.Player;
+
+import java.util.ArrayList;
 
 public class StageCoach extends Card {
     private static final String CARD_NAME = "StageCoach";
@@ -12,7 +13,13 @@ public class StageCoach extends Card {
     }
 
     @Override
-    public void playCard(Player player) {
+    public boolean canPlay() {
+        return false;
+    }
 
+    @Override
+    public ArrayList<Card> playCard(Player player) {
+
+        return null;
     }
 }

@@ -2,6 +2,8 @@ package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
 
+import java.util.ArrayList;
+
 public class Barrel extends Card {
     private static final String CARD_NAME = "Barrel";
     private static final String CARD_COLOR = "Blue";
@@ -11,7 +13,13 @@ public class Barrel extends Card {
     }
 
     @Override
-    public void playCard(Player player) {
+    public boolean canPlay() {
+        return false;
+    }
 
+    @Override
+    public ArrayList<Card> playCard(Player player) {
+
+        return null;
     }
 }
