@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Beer extends Card {
     private static final String CARD_NAME = "Beer";
     private static final String CARD_COLOR = "Brown";
-    private ArrayList<Card> cardsToThrowAway;
+
     public Beer() {
         super(CARD_NAME, CARD_COLOR);
     }
@@ -18,8 +18,15 @@ public class Beer extends Card {
     }
 
     @Override
+    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
+        return null;
+    }
+
+    @Override
     public ArrayList<Card> playCard(Player player) {
-        cardsToThrowAway = new ArrayList<Card>();
+        System.out.println(player.getName() + " is getting drunk...");
+        System.out.println("->" + player.getName() + " has gained 1hp.");
+        ArrayList<Card> cardsToThrowAway = new ArrayList<>();
         cardsToThrowAway.add(this);
 
         System.out.println(CARD_NAME + " card was played and 1hp has been added to " + player.getName());
@@ -27,14 +34,4 @@ public class Beer extends Card {
 
         return cardsToThrowAway;
     }
-//    @Override
-//    public boolean canPlay() {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean canPlay(int index) {
-//        return false;
-//    }
-
 }

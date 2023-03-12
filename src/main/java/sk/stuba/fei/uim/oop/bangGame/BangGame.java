@@ -131,8 +131,7 @@ public class BangGame {
 
             ArrayList<Card> cardsToRemove;
             if (!cardToPlay.getUseOnSelf()) {
-                Player otherPlayer = chooseOtherPlayer(currentPlayer);
-                cardsToRemove = cardToPlay.playCard(otherPlayer);
+                cardsToRemove = cardToPlay.playCard(currentPlayer, getOtherPlayers(currentPlayer));
             } else {
                 cardsToRemove = cardToPlay.playCard(currentPlayer);
             }
@@ -147,22 +146,10 @@ public class BangGame {
         }
     }
 
-    private Player chooseOtherPlayer(Player currentPlayer) {
-        ArrayList<Player> otherPlayers = players;
+    private ArrayList<Player> getOtherPlayers(Player currentPlayer) {
+        ArrayList<Player> otherPlayers = this.players;
         otherPlayers.remove(currentPlayer);
-        int count = 1;
-        int otherPlayerIndex = -1;
-        for (Player player : otherPlayers) {
-            System.out.println("Player " + count + " " + player.getName());
-        }
-
-        while (otherPlayerIndex < 0 || otherPlayerIndex > otherPlayers.size()) {
-            otherPlayerIndex = ZKlavesnice.readInt("*** Enter number of players (2-4): ***");
-            if (otherPlayerIndex < 0 || otherPlayerIndex > otherPlayers.size()) {
-                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
-            }
-        }
-        return otherPlayers.get(otherPlayerIndex - 1);
+        return otherPlayers;
     }
 
     private void throwAwayExcessiveCards(Player currentPlayer) {

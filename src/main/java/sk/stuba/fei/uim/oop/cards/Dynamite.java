@@ -14,7 +14,12 @@ public class Dynamite extends Card {
 
     @Override
     public boolean canPlay() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
+        return null;
     }
 
     @Override

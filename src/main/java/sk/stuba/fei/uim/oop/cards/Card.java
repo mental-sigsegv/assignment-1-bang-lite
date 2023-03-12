@@ -30,5 +30,9 @@ public abstract class Card {
     }
     public abstract boolean canPlay();
 //    public abstract boolean canPlay(int index);
+    public abstract ArrayList<Card> playCard(Player caller, ArrayList<Player> others);
+
     public abstract ArrayList<Card> playCard(Player player);
+
+
 }

@@ -18,6 +18,11 @@ public class Bang extends Card {
     }
 
     @Override
+    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
+        return null;
+    }
+
+    @Override
     public ArrayList<Card> playCard(Player player) {
         ArrayList<Card> cardsToThrowAway = new ArrayList<>();
         Card missed = new Missed();
