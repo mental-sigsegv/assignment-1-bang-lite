@@ -83,6 +83,11 @@ public class Player {
         this.cards.remove(index);
         return cardToRemove;
     }
+    public Card removeActiveCard(int index) {
+        Card cardToRemove = this.activeCards.get(index);
+        this.activeCards.remove(index);
+        return cardToRemove;
+    }
     public void removeCard(Card card) {
         this.cards.remove(card);
     }
@@ -178,7 +183,6 @@ public class Player {
         System.out.println(this.getName() + "'s drawing " + numOfCards + " cards.");
 //        cardDeck.printCards("Card");
 //        cardTrashDeck.printCards("Trash");
-
         if (numOfCards > cardDeck.getSize()) {
             cardDeck.fillCardDeckFromTrashCardDeck(cardTrashDeck);
         }

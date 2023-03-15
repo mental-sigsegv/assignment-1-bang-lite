@@ -18,6 +18,7 @@ public class CardDeck {
         cards.add(new Prison());
         for (int j = 0; j < 5; j ++ ) {
             cards.add(new Beer());
+            cards.add(new CatBalou());
         }
         for (int j = 0; j < 10; j ++ ) {
             cards.add(new Bang());

@@ -245,4 +245,12 @@ public class BangGame {
         double randomChance = random();
         return randomChance <= 1 / 8.0;
     }
+
+    public CardDeck getCardDeck() {
+        return this.cardDeck;
+    }
+
+    public CardDeck getCardTrashDeck() {
+        return this.cardTrashDeck;
+    }
 }

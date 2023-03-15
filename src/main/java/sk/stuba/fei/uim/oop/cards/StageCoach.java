@@ -27,6 +27,7 @@ public class StageCoach extends Card {
     public ArrayList<Card> playCard(Player player) {
         System.out.println(player.getName() + " is going to draw 2 extra cards.");
         ArrayList<Card> cardsToThrowAway = new ArrayList<>();
+//        player.drawCards();
         cardsToThrowAway.add(this);
         return cardsToThrowAway;
     }
