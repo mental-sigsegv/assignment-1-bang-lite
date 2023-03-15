@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
+import sk.stuba.fei.uim.oop.bangGame.BangGame;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ public class StageCoach extends Card {
     private static final String CARD_COLOR = "Brown";
 
     public StageCoach() {
-        super(CARD_NAME, CARD_COLOR);
+        super(CARD_NAME, CARD_COLOR, true);
     }
 
     @Override
@@ -24,7 +25,9 @@ public class StageCoach extends Card {
 
     @Override
     public ArrayList<Card> playCard(Player player) {
-
-        return null;
+        System.out.println(player.getName() + " is going to draw 2 extra cards.");
+        ArrayList<Card> cardsToThrowAway = new ArrayList<>();
+        cardsToThrowAway.add(this);
+        return cardsToThrowAway;
     }
 }

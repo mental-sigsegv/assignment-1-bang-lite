@@ -46,9 +46,11 @@ public class BangGame {
         // Create card decks
         this.cardDeck = new CardDeck(1);
         this.cardTrashDeck = new CardDeck("empty");
+        cardDeck.shuffle();
 
         for (Player player : players) {
-            this.drawCards(player, 4);
+//            this.drawCards(player, 4);
+            player.drawCards(this.cardDeck, this.cardTrashDeck, 4);
         }
 
         System.out.println("--- Game started... ---");
@@ -108,7 +110,8 @@ public class BangGame {
 
         checkPrison(currentPlayer);
 
-        drawCards(currentPlayer, 2);
+//        drawCards(currentPlayer, 2);
+        currentPlayer.drawCards(this.cardDeck, this.cardTrashDeck, 2);
         currentPlayer.printCards();
 
         playCards(currentPlayer);
@@ -148,7 +151,15 @@ public class BangGame {
     }
 
     private ArrayList<Player> getOtherPlayers(Player currentPlayer) {
-        ArrayList<Player> otherPlayers = this.players;
+
+        ArrayList<Player> otherPlayers = new ArrayList<>();
+
+        for (Player player : this.players) {
+            if (player != currentPlayer) {
+                otherPlayers.add(player);
+            }
+        }
+
         otherPlayers.remove(currentPlayer);
         return otherPlayers;
     }
@@ -202,30 +213,28 @@ public class BangGame {
         }
     }
 
+    // TODO draw card on player ?
     private void drawCards(Player currentPlayer, int numOfCards) {
-        System.out.println(currentPlayer.getName() + "'s drawing " + numOfCards + " cards.");
-        cardDeck.printCards("Card");
-        cardTrashDeck.printCards("Trash");
-
-        if (numOfCards > this.cardDeck.getSize()) {
-            fillCardDeckFromTrashCardDeck();
-        }
-
-        if (numOfCards > this.cardDeck.getSize()) {
-            numOfCards = this.cardDeck.getSize();
-            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
-        }
-
-
-        for (int i = 0; i < numOfCards; i++) {
-            currentPlayer.addCard(this.cardDeck.getCard(0));
-        }
+//        System.out.println(currentPlayer.getName() + "'s drawing " + numOfCards + " cards.");
+////        cardDeck.printCards("Card");
+////        cardTrashDeck.printCards("Trash");
+//
+//        if (numOfCards > this.cardDeck.getSize()) {
+//            fillCardDeckFromTrashCardDeck();
+//        }
+//
+//        if (numOfCards > this.cardDeck.getSize()) {
+//            numOfCards = this.cardDeck.getSize();
+//            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
+//        }
+//
+//
+//        for (int i = 0; i < numOfCards; i++) {
+//            currentPlayer.addCard(this.cardDeck.getCard(0));
+//        }
     }
 
-    private void fillCardDeckFromTrashCardDeck() {
-        this.cardDeck.addCard(cardTrashDeck.getCards());
-        this.cardTrashDeck.removeCards();
-    }
+
 
     private boolean prisonChance() {
         double randomChance = random();

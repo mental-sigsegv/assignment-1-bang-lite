@@ -9,17 +9,29 @@ public class Prison extends Card {
     private static final String CARD_COLOR = "Blue";
 
     public Prison() {
-        super(CARD_NAME, CARD_COLOR);
+        super(CARD_NAME, CARD_COLOR, false);
     }
 
     @Override
     public boolean canPlay() {
-        return false;
+        return true;
     }
 
     @Override
     public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
-        return null;
+        ArrayList<Card> cardsToThrowAway = new ArrayList<>();
+        cardsToThrowAway.add(this);
+
+        Card prison = new Prison();
+
+        int playerIndex = 0;
+        for (Player player : others) {
+            System.out.println((playerIndex+1) + ". " + player.getName());
+        }
+
+
+
+        return cardsToThrowAway;
     }
 
     @Override

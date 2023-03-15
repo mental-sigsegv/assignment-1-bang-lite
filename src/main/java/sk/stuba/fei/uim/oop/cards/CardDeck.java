@@ -16,10 +16,12 @@ public class CardDeck {
         cards.add(new Missed());
         cards.add(new Missed());
         cards.add(new Prison());
-        cards.add(new Beer());
-        cards.add(new Beer());
-        cards.add(new Beer());
-        cards.add(new Beer());
+        for (int j = 0; j < 5; j ++ ) {
+            cards.add(new Beer());
+        }
+        for (int j = 0; j < 10; j ++ ) {
+            cards.add(new Bang());
+        }
         cards.add(new CatBalou());
         cards.add(new StageCoach());
 
@@ -93,5 +95,15 @@ public class CardDeck {
         for (Card card : cards) {
             System.out.println(card.getName());
         }
+    }
+
+    public void shuffle() {
+        Collections.shuffle(this.cards);
+    }
+
+    public void fillCardDeckFromTrashCardDeck(CardDeck cardTrashDeck) {
+        this.addCard(cardTrashDeck.getCards());
+        this.removeCards();
+        this.shuffle();
     }
 }

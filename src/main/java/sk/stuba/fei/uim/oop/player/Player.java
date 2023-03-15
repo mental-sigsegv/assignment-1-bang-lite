@@ -1,6 +1,10 @@
 package sk.stuba.fei.uim.oop.player;
 
 import sk.stuba.fei.uim.oop.cards.Card;
+import sk.stuba.fei.uim.oop.cards.CardDeck;
+import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -137,6 +141,56 @@ public class Player {
         for (Card playableCard : this.getPlayableCards()) {
             System.out.println(count + ". " + playableCard.getName());
             count++;
+        }
+    }
+
+    public void checkDynamite() {
+
+    }
+
+    public void checkPrison() {
+
+    }
+
+    public Player choosePlayer(ArrayList<Player> players) {
+        ArrayList<Player> otherPlayers;
+        int numOfPlayers = players.size();
+        int counter = 1;
+        int playerIndex = -1;
+        for (Player player : players) {
+            System.out.println(counter + ". " + player.getName() + " " + player.getHealth() + "hp.");
+            counter++;
+        }
+
+        // Chose
+        while (playerIndex < 1 || playerIndex > (numOfPlayers )) {
+            playerIndex = ZKlavesnice.readInt("*** Enter number");
+            if (playerIndex < 1 || playerIndex > (numOfPlayers)) {
+                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+            }
+        }
+        System.out.println(players.get(playerIndex-1).getName());
+        return players.get(playerIndex-1);
+    }
+
+
+    public void drawCards(CardDeck cardDeck, CardDeck cardTrashDeck, int numOfCards) {
+        System.out.println(this.getName() + "'s drawing " + numOfCards + " cards.");
+//        cardDeck.printCards("Card");
+//        cardTrashDeck.printCards("Trash");
+
+        if (numOfCards > cardDeck.getSize()) {
+            cardDeck.fillCardDeckFromTrashCardDeck(cardTrashDeck);
+        }
+
+        if (numOfCards > cardDeck.getSize()) {
+            numOfCards = cardDeck.getSize();
+            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
+        }
+
+
+        for (int i = 0; i < numOfCards; i++) {
+            this.addCard(cardDeck.getCard(0));
         }
     }
 }
