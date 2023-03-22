@@ -16,6 +16,12 @@ public class CardDeck {
 
         setCards();
         shuffle();
+        cards.add(0, new Barrel(this));
+        cards.add(1, new Barrel(this));
+
+        for (Card card : cards) {
+            System.out.println(card.getName());
+        }
     }
 
     private void setCards() {
@@ -63,6 +69,7 @@ public class CardDeck {
     }
 
     public void fillCardDeckFromTrashCardDeck() {
+        System.out.println("--- Card deck has been refilled and shuffled. ---");
         addCard(trash);
         removeCardsTrash();
         shuffle();

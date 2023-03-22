@@ -19,7 +19,26 @@ public class Prison extends Card {
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
 
-        Player target = player.chooseTarget(players);
+        ArrayList<Player> filterPlayers = new ArrayList<>();
+
+        for (Player other : players) {
+            boolean hasPrison = false;
+            for (Card card : other.getActiveCards()) {
+                if (card.getName() == "Prison") {
+                    hasPrison = true;
+                }
+            }
+            if (!hasPrison) {
+                filterPlayers.add(other);
+            }
+        }
+
+        if (filterPlayers.size() == 0) {
+            System.out.println(ConsoleColors.RED + "--- You cant use card prison on anyone! ---" + ConsoleColors.RESET);
+            return;
+        }
+
+        Player target = player.chooseTarget(filterPlayers);
         target.getActiveCards().add(this);
         player.removeCard(this);
     }

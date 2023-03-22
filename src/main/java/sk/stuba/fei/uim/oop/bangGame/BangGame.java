@@ -23,7 +23,7 @@ public class BangGame {
         int MAX_PLAYERS = 4;
 
         while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
-            numOfPlayers = ZKlavesnice.readInt("--- Enter number of players (2-4): ---");
+            numOfPlayers = ZKlavesnice.readInt(ConsoleColors.CYAN + "--- Enter number of players (2-4): ---" + ConsoleColors.RESET);
             if (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
                 System.out.println(ConsoleColors.RED + "!!! Try again! !!!" + ConsoleColors.RESET);
             }
@@ -87,6 +87,10 @@ public class BangGame {
         // Play player cards
         playCards(currentPlayer);
 
+        if (getAlivePlayers() == 1) {
+            return;
+        }
+
         // Throw away cards
         throwAwayExcessiveCards(currentPlayer);  // TODO check spelling
     }
@@ -94,13 +98,13 @@ public class BangGame {
     private void playCards(Player currentPlayer) {
         int cardIndex;
         int maxCardIndex = currentPlayer.getPlayableCards().size();
-        while (maxCardIndex > 0) {
+        while (maxCardIndex > 0 && getAlivePlayers() > 1) {
             currentPlayer.printPlayableCards();
-            cardIndex = ZKlavesnice.readInt("Enter number of card, that you would like to play. [0 to stop selection]");
+            cardIndex = ZKlavesnice.readInt(ConsoleColors.CYAN + "--- Enter number of card, that you would like to play. [0 to stop] ---" + ConsoleColors.RESET);
             if (cardIndex == 0) {
                 return;
             } else if (cardIndex < 0 || cardIndex > maxCardIndex) {
-                System.out.println("You have entered wrong number.");
+                System.out.println(ConsoleColors.RED + "!!! Try again! !!!" + ConsoleColors.RESET);
                 continue;
             }
             Card cardToPlay = currentPlayer.getPlayableCards().get(cardIndex - 1);
@@ -142,7 +146,7 @@ public class BangGame {
 
             while (numberOfCards > maxNumberOfCards) {
                 currentPlayer.printCards();
-                indexOfCard = ZKlavesnice.readInt("--- Enter number of card that will be removed. ---");
+                indexOfCard = ZKlavesnice.readInt(ConsoleColors.CYAN + "--- Enter number of card that will be removed. ---" + ConsoleColors.RESET);
                 if (indexOfCard < 1 || indexOfCard > currentPlayer.getCards().size()) {
                     System.out.println(ConsoleColors.RED + "!!! Try Again! !!!" + ConsoleColors.RESET);
                     continue;

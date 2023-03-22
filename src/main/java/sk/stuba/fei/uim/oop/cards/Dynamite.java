@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.cards;
 
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Dynamite extends Card {
     }
     public boolean checkChance(Player player, ArrayList<Player> players) {
         if (Math.random() < 1/8.0) {
+            System.out.println(ConsoleColors.RED + "--- " + player.getName() + " has been bombed! ---" + ConsoleColors.RESET);
             player.removeHealth(3);
             player.getActiveCards().remove(this);
             cardDeck.trash.add(this);
@@ -41,7 +43,7 @@ public class Dynamite extends Card {
             }
 
         }
-
+        System.out.println("--- " + player.getName() + " didn't explode and dynamite was passed! ---");
         player.getActiveCards().remove(this);
         players.get(index).getActiveCards().add(this);
         return true;

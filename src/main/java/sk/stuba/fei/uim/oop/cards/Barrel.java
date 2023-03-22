@@ -33,8 +33,9 @@ public class Barrel extends Card {
 
     public boolean checkChance(Player player) {
         if (Math.random() < 1/4.0) {
-            player.getActiveCards().remove(this);
-            cardDeck.trash.add(this);
+//            Barrel is not removed
+//            player.getActiveCards().remove(this);
+//            cardDeck.trash.add(this);
             return true;
         }
         return false;
