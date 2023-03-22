@@ -13,10 +13,54 @@ public class CatBalou extends Card {
 
     @Override
     public boolean canPlay() {
-        return false;
+        return true;
     }
     @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
+
+        ArrayList<Player> targets = new ArrayList<>();
+        for (Player target : players) {
+            if (target != player) {
+                targets.add(target);
+            }
+        }
+
+        Player target = player.chooseTarget(targets);
+
+        int typeOfDeck = -1;
+
+        while (typeOfDeck < 0 || typeOfDeck > 1) {
+            typeOfDeck = ZKlavesnice.readInt("*** Enter number of players (0-1): ***");
+            if (typeOfDeck < 0 || typeOfDeck > 1) {
+                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+            }
+        }
+
+        cardDeck.trash.add(this);
+        player.removeCard(this);
+
+        int cardDeckSize;
+        Card cardToRemove;
+        if (typeOfDeck == 0) {
+            cardDeckSize = target.getCards().size();
+            if (cardDeckSize == 0) {
+                return;
+            } else {
+                cardToRemove = target.getCards().get((int) (Math.random() * cardDeckSize-1));
+                target.removeCard(cardToRemove);
+            }
+        } else {
+            cardDeckSize = target.getActiveCards().size();
+            if (cardDeckSize == 0) {
+                return;
+            } else {
+                cardToRemove = target.getActiveCards().get((int) (Math.random() * cardDeckSize-1));
+                target.removeActiveCard(cardToRemove);
+            }
+        }
+        cardDeck.trash.add(cardToRemove);
+
+        System.out.println(target.getName() + " lost " + cardToRemove.getName() + " card.");
     }
 }

@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.player;
 import sk.stuba.fei.uim.oop.cards.Bang;
 import sk.stuba.fei.uim.oop.cards.Card;
 import sk.stuba.fei.uim.oop.cards.CardDeck;
+import sk.stuba.fei.uim.oop.cards.Dynamite;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import java.lang.reflect.Array;
@@ -155,8 +156,13 @@ public class Player {
         }
     }
 
-    public void checkDynamite() {
-
+    public boolean checkDynamite(ArrayList<Player> players) {
+        for (Card card : activeCards) {
+            if (Objects.equals(card.getName(), "Dynamite")) {
+                return ((Dynamite) card).checkChance(this, players);
+            }
+        }
+        return true;
     }
 
     public boolean checkPrison() {
@@ -174,6 +180,15 @@ public class Player {
     public boolean hasCardBang() {
         for (Card card : cards) {
             if (Objects.equals(card.getName(), "Bang")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasCardBarrel() {
+        for (Card card : activeCards) {
+            if (Objects.equals(card.getName(), "Barrel")) {
                 return true;
             }
         }

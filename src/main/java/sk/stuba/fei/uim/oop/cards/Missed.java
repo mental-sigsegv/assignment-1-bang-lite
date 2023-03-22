@@ -14,11 +14,10 @@ public class Missed extends Card {
     public boolean canPlay() {
         return false;
     }
+
     @Override
     public void playCard(Player player) {
-        super.playCard(player);
-
-        player.removeCard(this);
+        player.getCards().remove(this);
         cardDeck.trash.add(this);
     }
 }

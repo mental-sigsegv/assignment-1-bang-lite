@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,26 @@ public class Barrel extends Card {
         return true;
     }
     @Override
-    public void playCard(Player player, ArrayList<Player> players) {
-        super.playCard(player, players);
+    public void playCard(Player player) {
+        super.playCard(player);
+
+        for (Card card : player.getActiveCards()) {
+            if (card.getName() == "Barrel") {
+                System.out.println(ConsoleColors.RED + "You already have barrel in front of you!" + ConsoleColors.RESET);
+                return;
+            }
+        }
+
+        player.getCards().remove(this);
+        player.getActiveCards().add(this);
+    }
+
+    public boolean checkChance(Player player) {
+        if (Math.random() < 1/4.0) {
+            player.getActiveCards().remove(this);
+            cardDeck.trash.add(this);
+            return true;
+        }
+        return false;
     }
 }

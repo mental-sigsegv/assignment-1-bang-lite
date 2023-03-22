@@ -21,15 +21,10 @@ public class Bang extends Card {
         super.playCard(player, players);
         Player target = player.chooseTarget(players);
 
-        // TODO fix this
-        if (target.hasCardMissed()) {
-            for (Card card : target.getCards()) {
-                if (Objects.equals(card.getName(), "Missed")) {
-                    card.playCard(target);
-                    System.out.println(target.getName() + " dodged a bullet with card missed.");
-                    break;
-                }
-            }
+        if (useBarrel(target)) {
+            System.out.println(player.getName() + " dodged a bullet with card barrel.");
+        } else if (useMissed(target)) {
+            System.out.println(player.getName() + " dodged a bullet with card missed.");
         } else {
             System.out.println(target.getName() + " was shot and lost 1hp.");
             target.removeHealth();
@@ -37,5 +32,28 @@ public class Bang extends Card {
 
         player.removeCard(this);
         cardDeck.trash.add(this);
+    }
+
+    private boolean useMissed(Player player) {
+        if (player.hasCardMissed()) {
+            for (Card card : player.getCards()) {
+                if (Objects.equals(card.getName(), "Missed")) {
+                    card.playCard(player);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean useBarrel(Player player) {
+        if (player.hasCardBarrel()) {
+            for (Card card : player.getActiveCards()) {
+                if (Objects.equals(card.getName(), "Barrel")) {
+                    return ((Barrel) card).checkChance(player);
+                }
+            }
+        }
+        return false;
     }
 }
