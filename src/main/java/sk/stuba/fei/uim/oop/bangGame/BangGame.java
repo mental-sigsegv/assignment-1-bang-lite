@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.bangGame;
 
 import sk.stuba.fei.uim.oop.cards.*;
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
@@ -73,6 +74,13 @@ public class BangGame {
     private void makeTurn(Player currentPlayer) {
         System.out.println(currentPlayer.getName() + "'s turn...");
         System.out.println(currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
+
+        if (!currentPlayer.checkPrison()) {
+            System.out.println(ConsoleColors.RED + currentPlayer.getName() + " didn't escape prison. He must wait 1 round." + ConsoleColors.RESET);
+            return;
+        } else {
+            System.out.println(ConsoleColors.GREEN + currentPlayer.getName() + " escaped prison." + ConsoleColors.RESET);
+        }
 
         cardDeck.drawCards(currentPlayer, 2);
         currentPlayer.printCards();

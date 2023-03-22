@@ -47,25 +47,30 @@ public class Player {
     }
 
     public void printCards() {
-        int count = 1;
-        System.out.println(this.name + "'s cards (" + (activeCards.size() + cards.size()) + ") are:");
-        for (Card card : cards) {
-            System.out.println(count + ". " + card.getName());
-            count++;
-        }
-        System.out.println("\n");
-        if (this.activeCards.size() > 0) {
+        int count;
+        System.out.println(name + "'s cards (" + (activeCards.size() + cards.size()) + ") are:");
+
+        if (cards.size() > 0) {
             count = 1;
-            System.out.println(this.name + "'s active cards are: ");
+            System.out.println(consoleColors.GREEN_UNDERLINED + name + "'s cards on hand are: " + consoleColors.RESET);
+            for (Card card : cards) {
+                System.out.println(count + ". " + consoleColors.GREEN + card.getName() + consoleColors.RESET);
+                count++;
+            }
+        }
+
+        if (activeCards.size() > 0) {
+            count = 1;
+            System.out.println(consoleColors.BLUE_UNDERLINED + name + "'s active cards are: " + consoleColors.RESET);
             for (Card card : activeCards) {
-                System.out.println(count + ". " + card.getName());
+                System.out.println(count + ". " + consoleColors.BLUE + card.getName() + consoleColors.RESET);
                 count++;
             }
         }
     }
 
     public ArrayList<Card> getActiveCards() {
-        return this.cards;
+        return this.activeCards;
     }
     public Card getActiveCard(int indexOfCard) {
         return this.activeCards.get(indexOfCard);
@@ -121,12 +126,12 @@ public class Player {
     }
 
     public int getCardIndex(Card card) {
-        int counter = 0;
+        int count = 0;
         for (Card c : cards) {
             if (Objects.equals(c.getName(), card.getName())) {
-                return counter;
+                return count;
             }
-            counter++;
+            count++;
         }
         return -1;
     }
@@ -154,38 +159,58 @@ public class Player {
 
     }
 
-    public void checkPrison() {
-
-    }
-
-    public Player choosePlayer(ArrayList<Player> players) {
-        ArrayList<Player> otherPlayers;
-        int numOfPlayers = players.size();
-        int counter = 1;
-        int playerIndex = -1;
-        for (Player player : players) {
-            System.out.println(counter + ". " + player.getName() + " " + player.getHealth() + "hp.");
-            counter++;
-        }
-
-        // Chose
-        while (playerIndex < 1 || playerIndex > (numOfPlayers )) {
-            playerIndex = ZKlavesnice.readInt("*** Enter number");
-            if (playerIndex < 1 || playerIndex > (numOfPlayers)) {
-                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+    public boolean checkPrison() {
+        for (Card card : activeCards) {
+            if (Objects.equals(card.getName(), "Prison")) {
+                card.playCard(this);
+                return Math.random() < 1/4.0;
             }
         }
-        System.out.println(players.get(playerIndex-1).getName());
-        return players.get(playerIndex-1);
+        return true;
     }
+
+
 
     public boolean hasCardBang() {
         for (Card card : cards) {
-            if (card.getName() == "Bang") {
+            if (Objects.equals(card.getName(), "Bang")) {
                 return true;
             }
         }
         return false;
     }
 
+    public boolean hasCardMissed() {
+        for (Card card : cards) {
+            if (card.getName() == "Missed") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Player chooseTarget(ArrayList<Player> players) {
+        ArrayList<Player> targets = new ArrayList<>();
+
+        int count = 1;
+        int index = -1;
+
+        for (Player player : players) {
+            if (player != this && player.isAlive()) {
+                targets.add(player);
+                System.out.println(count + ". " + player.getName() + " " + player.getHealth() + "hp.");
+                count++;
+            }
+
+        }
+
+        while (index < 1 || index > targets.size()) {
+            index = ZKlavesnice.readInt("*** Enter number");
+            if (index < 1 || index > targets.size()) {
+                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+            }
+        }
+        System.out.println(targets.get(index-1).getName());
+        return targets.get(index-1);
+    }
 }

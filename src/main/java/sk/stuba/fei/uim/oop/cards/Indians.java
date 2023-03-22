@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.cards;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Indians extends Card {
     private static final String CARD_NAME = "Indians";
@@ -14,7 +15,7 @@ public class Indians extends Card {
     public boolean canPlay() {
         return true;
     }
-
+    @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
         System.out.println("Indians are coming...");
@@ -22,10 +23,11 @@ public class Indians extends Card {
             if (player2 == player) {
                 continue;
             }
+            // TODO implement better way of doing hasCardBang
             if (player2.hasCardBang()) {
                 System.out.println("->" + player2.getName() + " shot indians with card bang and didn't lose health.");
                 for (Card card : player2.getCards()) {
-                    if (card.getName() == "Bang") {
+                    if (Objects.equals(card.getName(), "Bang")) {
                         player2.getCards().remove(card);
                         cardDeck.trash.add(card);
                         break;

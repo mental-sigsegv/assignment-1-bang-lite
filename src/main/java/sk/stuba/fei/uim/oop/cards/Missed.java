@@ -14,9 +14,11 @@ public class Missed extends Card {
     public boolean canPlay() {
         return false;
     }
+    @Override
+    public void playCard(Player player) {
+        super.playCard(player);
 
-    public void playCard(Player player, ArrayList<Player> players) {
-        super.playCard(player, players);
+        player.removeCard(this);
+        cardDeck.trash.add(this);
     }
-
 }

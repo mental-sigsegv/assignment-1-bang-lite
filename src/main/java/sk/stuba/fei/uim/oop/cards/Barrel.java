@@ -14,7 +14,7 @@ public class Barrel extends Card {
     public boolean canPlay() {
         return true;
     }
-
+    @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
     }
