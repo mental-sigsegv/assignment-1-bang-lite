@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.cards;
 
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
@@ -31,9 +32,9 @@ public class CatBalou extends Card {
         int typeOfDeck = -1;
 
         while (typeOfDeck < 0 || typeOfDeck > 1) {
-            typeOfDeck = ZKlavesnice.readInt("*** Enter number of players (0-1): ***");
+            typeOfDeck = ZKlavesnice.readInt("0 Cards on hand\n1 Cards on table");
             if (typeOfDeck < 0 || typeOfDeck > 1) {
-                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+                System.out.println(" !!! Try again! !!!");
             }
         }
 
@@ -61,6 +62,6 @@ public class CatBalou extends Card {
         }
         cardDeck.trash.add(cardToRemove);
 
-        System.out.println(target.getName() + " lost " + cardToRemove.getName() + " card.");
+        System.out.println("--- " + target.getName() + " lost card " + cardToRemove.getName() + " ---");
     }
 }

@@ -42,6 +42,7 @@ public class Dynamite extends Card {
 
         }
 
+        player.getActiveCards().remove(this);
         players.get(index).getActiveCards().add(this);
         return true;
     }

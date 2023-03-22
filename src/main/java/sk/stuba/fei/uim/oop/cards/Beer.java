@@ -20,6 +20,7 @@ public class Beer extends Card {
         player.removeCard(this);
         cardDeck.trash.add(this);
 
-        System.out.println(player.getName() + " has gained 1hp. Player's current hp: " + player.getHealth() + "hp");
+        System.out.println("--- " + player.getName() + " has gained 1hp. Player's current hp: " + player.getHealth() + "hp ---");
+
     }
 }

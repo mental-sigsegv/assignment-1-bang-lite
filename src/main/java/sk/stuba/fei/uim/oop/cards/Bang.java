@@ -22,11 +22,11 @@ public class Bang extends Card {
         Player target = player.chooseTarget(players);
 
         if (useBarrel(target)) {
-            System.out.println(player.getName() + " dodged a bullet with card barrel.");
+            System.out.println("--- " + target.getName() + " dodged a bullet with card barrel. ---");
         } else if (useMissed(target)) {
-            System.out.println(player.getName() + " dodged a bullet with card missed.");
+            System.out.println("--- " + target.getName() + " dodged a bullet with card missed. ---");
         } else {
-            System.out.println(target.getName() + " was shot and lost 1hp.");
+            System.out.println("--- " + target.getName() + " was shot and lost 1hp. ---");
             target.removeHealth();
         }
 

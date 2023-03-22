@@ -3,6 +3,8 @@ package sk.stuba.fei.uim.oop.cards;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 
 public class CardDeck {
@@ -102,18 +104,22 @@ public class CardDeck {
     }
 
     public void drawCards(Player player, int numOfCards) {
-        System.out.println("-> " + player.getName() + " is drawing" + numOfCards + " cards...");
+        System.out.println("-> " + player.getName() + " is drawing " + numOfCards + " cards...");
         if (numOfCards > cards.size()) {
             fillCardDeckFromTrashCardDeck();
         }
 
         if (numOfCards > cards.size()) {
             numOfCards = cards.size();
-            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
+            System.out.println(ConsoleColors.RED + "--- There are not enough cards in deck. You will draw " + numOfCards + " cards. ---" + ConsoleColors.RESET);
         }
 
+        System.out.print("[ " + ConsoleColors.CYAN);
         for (int i = 0; i < numOfCards; i++) {
-            player.addCard(cards.remove(0));
+            Card card = cards.remove(0);
+            System.out.print(card.getName() + " ");
+            player.addCard(card);
         }
+        System.out.print(ConsoleColors.RESET + "]\n\n");
     }
 }

@@ -20,7 +20,7 @@ public class Indians extends Card {
         super.playCard(player, players);
         System.out.println("Indians are coming...");
         for (Player player2 : players) {
-            if (player2 == player) {
+            if (player2 == player || !player2.isAlive()) {
                 continue;
             }
             // TODO implement better way of doing hasCardBang

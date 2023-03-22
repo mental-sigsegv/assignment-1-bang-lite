@@ -17,7 +17,7 @@ public abstract class Card {
     }
     public abstract boolean canPlay();
     public void playCard(Player player, ArrayList<Player> players) {
-        System.out.println(ConsoleColors.YELLOW + "--- " + player.getName() + " has chosen card " + this.name + " to play. ---" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.PURPLE + "--- " + player.getName() + " has chosen card " + this.name + " to play. ---" + ConsoleColors.RESET);
     }
 
     public void playCard(Player player) {

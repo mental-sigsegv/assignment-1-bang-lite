@@ -28,15 +28,22 @@ public class Player {
     }
     public void removeHealth() {
         this.health--;
+        checkDead();
     }
     public void removeHealth(int damage) {
         this.health -= damage;
+        checkDead();
     }
     public void addHealth() {
         this.health++;
     }
     public int getHealth() {
         return this.health;
+    }
+    public void checkDead() {
+        if (!isAlive()) {
+            System.out.println(ConsoleColors.RED + "--- " + getName() + " IS DEAD! ---" + ConsoleColors.RESET);
+        }
     }
     public ArrayList<Card> getCards() {
         return this.cards;
@@ -208,18 +215,28 @@ public class Player {
         int index = -1;
 
         for (Player player : players) {
+            StringBuilder activeCards = new StringBuilder(" ");
+            for (Card card : player.getActiveCards()) {
+                activeCards.append(card.getName()).append(" ");
+            }
+
             if (player != this && player.isAlive()) {
                 targets.add(player);
-                System.out.println(count + ". " + player.getName() + " " + player.getHealth() + "hp.");
+                System.out.print(count + ". " + player.getName() + " " + player.getHealth() + " hp");
+                if (player.getActiveCards().size() > 0) {
+                    System.out.print(" [" + ConsoleColors.CYAN + activeCards + ConsoleColors.RESET + "]\n");
+                } else {
+                    System.out.print("\n");
+                }
                 count++;
             }
 
         }
 
         while (index < 1 || index > targets.size()) {
-            index = ZKlavesnice.readInt("*** Enter number");
+            index = ZKlavesnice.readInt("--- Enter number of player ---");
             if (index < 1 || index > targets.size()) {
-                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+                System.out.println(ConsoleColors.RED + "!!! Try Again! !!!" + ConsoleColors.RESET);
             }
         }
         System.out.println(targets.get(index-1).getName());

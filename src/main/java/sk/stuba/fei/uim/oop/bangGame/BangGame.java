@@ -63,12 +63,12 @@ public class BangGame {
             incCurrentPlayerIndex();
         }
 
-        System.out.println("Game finished!");
-        System.out.println("Thw winner is " + Objects.requireNonNull(getWinner()).getName() + "! Congratulation!");
+        System.out.println(ConsoleColors.BLUE + "\n--- Game finished! ---" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED + "\n--- The winner is " + Objects.requireNonNull(getWinner()).getName() + "! Congratulation! ---" + ConsoleColors.RESET);
     }
     private void makeTurn(Player currentPlayer) {
-        System.out.println(ConsoleColors.RED + "--- " + currentPlayer.getName() + "'S TURN ---" + ConsoleColors.RESET);
-        System.out.println("-> " + currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
+        System.out.println(ConsoleColors.RED + "\n--- " + currentPlayer.getName() + "'S TURN ---" + ConsoleColors.RESET);
+        System.out.println("-> " + currentPlayer.getName() + " has " + ConsoleColors.CYAN + currentPlayer.getHealth() + " hp." + ConsoleColors.RESET);
 
         // Check dynamite
         if (!currentPlayer.checkDynamite(players)) {
@@ -144,9 +144,9 @@ public class BangGame {
 
             while (numberOfCards > maxNumberOfCards) {
                 currentPlayer.printCards();
-                indexOfCard = ZKlavesnice.readInt("Enter number of card that will be removed.");
+                indexOfCard = ZKlavesnice.readInt("--- Enter number of card that will be removed. ---");
                 if (indexOfCard < 1 || indexOfCard > currentPlayer.getCards().size()) {
-                    System.out.println(" !!! You enter wrong number of card. Try Again! !!!");
+                    System.out.println(ConsoleColors.RED + "!!! Try Again! !!!" + ConsoleColors.RESET);
                     continue;
                 }
                 thrownCard = currentPlayer.removeCard(indexOfCard - 1);
