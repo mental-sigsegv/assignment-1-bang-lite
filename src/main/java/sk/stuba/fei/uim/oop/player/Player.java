@@ -1,12 +1,9 @@
 package sk.stuba.fei.uim.oop.player;
 
-import sk.stuba.fei.uim.oop.cards.Bang;
 import sk.stuba.fei.uim.oop.cards.Card;
-import sk.stuba.fei.uim.oop.cards.CardDeck;
 import sk.stuba.fei.uim.oop.cards.Dynamite;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -15,14 +12,12 @@ public class Player {
     private int health;
     protected final ArrayList<Card> cards;
     protected final ArrayList<Card> activeCards;
-    private ConsoleColors consoleColors;
 
     public Player(String name) {
         this.name = name;
         this.health = 4;
         this.cards = new ArrayList<>();
         this.activeCards = new ArrayList<>();
-        this.consoleColors = new ConsoleColors();
     }
 
     public String getName() {
@@ -49,22 +44,21 @@ public class Player {
 
     public void printCards() {
         int count;
-        System.out.println(name + "'s cards (" + (activeCards.size() + cards.size()) + ") are:");
 
         if (cards.size() > 0) {
             count = 1;
-            System.out.println(consoleColors.GREEN_UNDERLINED + name + "'s cards on hand are: " + consoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_UNDERLINED + name + "'s cards (" + cards.size() + ") on hand are: " + ConsoleColors.RESET);
             for (Card card : cards) {
-                System.out.println(count + ". " + consoleColors.GREEN + card.getName() + consoleColors.RESET);
+                System.out.println(count + ". " + ConsoleColors.GREEN + card.getName() + ConsoleColors.RESET);
                 count++;
             }
         }
 
         if (activeCards.size() > 0) {
             count = 1;
-            System.out.println(consoleColors.BLUE_UNDERLINED + name + "'s active cards are: " + consoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE_UNDERLINED + name + "'s active cards (" + activeCards.size() + ") are: " + ConsoleColors.RESET);
             for (Card card : activeCards) {
-                System.out.println(count + ". " + consoleColors.BLUE + card.getName() + consoleColors.RESET);
+                System.out.println(count + ". " + ConsoleColors.BLUE + card.getName() + ConsoleColors.RESET);
                 count++;
             }
         }
@@ -72,9 +66,6 @@ public class Player {
 
     public ArrayList<Card> getActiveCards() {
         return this.activeCards;
-    }
-    public Card getActiveCard(int indexOfCard) {
-        return this.activeCards.get(indexOfCard);
     }
 
     public void removeCards() {
@@ -148,10 +139,10 @@ public class Player {
     }
 
     public void printPlayableCards() {
-        System.out.println(consoleColors.WHITE_UNDERLINED + "Cards that can be played by " + this.getName() + ":" + consoleColors.RESET);
+        System.out.println(ConsoleColors.YELLOW_UNDERLINED + getName() + "'s cards that can be played: " + ConsoleColors.RESET);
         int count = 1;
         for (Card playableCard : this.getPlayableCards()) {
-            System.out.println(count + ". " + playableCard.getName());
+            System.out.println(count + ConsoleColors.YELLOW + ". " + playableCard.getName() + ConsoleColors.RESET);
             count++;
         }
     }
@@ -169,7 +160,13 @@ public class Player {
         for (Card card : activeCards) {
             if (Objects.equals(card.getName(), "Prison")) {
                 card.playCard(this);
-                return Math.random() < 1/4.0;
+                if (Math.random() < 1/4.0) {
+                    System.out.println(ConsoleColors.GREEN + getName() + " escaped prison." + ConsoleColors.RESET);
+                    return true;
+                } else {
+                    System.out.println(ConsoleColors.RED + getName() + " didn't escape prison. He must wait 1 round." + ConsoleColors.RESET);
+                    return false;
+                }
             }
         }
         return true;

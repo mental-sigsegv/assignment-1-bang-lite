@@ -102,7 +102,7 @@ public class CardDeck {
     }
 
     public void drawCards(Player player, int numOfCards) {
-        System.out.println(player.getName() + " is drawing cards...");
+        System.out.println("-> " + player.getName() + " is drawing" + numOfCards + " cards...");
         if (numOfCards > cards.size()) {
             fillCardDeckFromTrashCardDeck();
         }

@@ -16,7 +16,7 @@ public class Barrel extends Card {
         return true;
     }
     @Override
-    public void playCard(Player player) {
+    public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player);
 
         for (Card card : player.getActiveCards()) {

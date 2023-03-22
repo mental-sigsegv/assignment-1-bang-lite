@@ -17,27 +17,26 @@ public class BangGame {
     private final ArrayList<Player> players;
     private int playerCurrentIndex = 0;
     public BangGame() {
-        System.out.println("Welcome to FEI Bang!");
+        System.out.println("--- Welcome to " + ConsoleColors.BLUE + "FEI" + ConsoleColors.RESET + " Bang! ---");
 
         // Get number of players
         int numOfPlayers = 0;
         int MIN_PLAYERS = 2;
         int MAX_PLAYERS = 4;
+
         while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
-            numOfPlayers = ZKlavesnice.readInt("*** Enter number of players (2-4): ***");
+            numOfPlayers = ZKlavesnice.readInt("--- Enter number of players (2-4): ---");
             if (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
-                System.out.println(" !!! You enter wrong number of players. Try Again! !!!");
+                System.out.println(ConsoleColors.RED + "!!! Try again! !!!" + ConsoleColors.RESET);
             }
         }
 
         // Set players name
         this.players = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++) {
-            this.players.add(new Player(ZKlavesnice.readString("*** Enter name for PLAYER " + (i+1) + " : ***")));
+            this.players.add(new Player(ZKlavesnice.readString("--- Enter name for " + ConsoleColors.YELLOW + "PLAYER " + (i+1) + ConsoleColors.RESET + ": ---")));
         }
 
-
-//        this.test();
         // Start game
         this.startGame();
 
@@ -50,11 +49,7 @@ public class BangGame {
             cardDeck.drawCards(player, 4);
         }
 
-        System.out.println("--- Game started... ---");
-
-        for (Card card : cardDeck.getCards()) {
-            System.out.println(card.getName());
-        }
+        System.out.println(ConsoleColors.BLUE + "\n--- GAME STARTED ---\n" + ConsoleColors.RESET);
 
         while (getAlivePlayers() > 1) {
             Player currentPlayer = players.get(playerCurrentIndex);
@@ -72,22 +67,30 @@ public class BangGame {
         System.out.println("Thw winner is " + Objects.requireNonNull(getWinner()).getName() + "! Congratulation!");
     }
     private void makeTurn(Player currentPlayer) {
-        System.out.println(currentPlayer.getName() + "'s turn...");
-        System.out.println(currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
+        System.out.println(ConsoleColors.RED + "--- " + currentPlayer.getName() + "'S TURN ---" + ConsoleColors.RESET);
+        System.out.println("-> " + currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
 
-        if (!currentPlayer.checkPrison()) {
-            System.out.println(ConsoleColors.RED + currentPlayer.getName() + " didn't escape prison. He must wait 1 round." + ConsoleColors.RESET);
+        // Check dynamite
+        if (!currentPlayer.checkDynamite(players)) {
             return;
-        } else {
-            System.out.println(ConsoleColors.GREEN + currentPlayer.getName() + " escaped prison." + ConsoleColors.RESET);
         }
 
+        // Check prison
+        if (!currentPlayer.checkPrison()) {
+            return;
+        }
+
+        // Draw cards
         cardDeck.drawCards(currentPlayer, 2);
+
+        // Print player cards
         currentPlayer.printCards();
 
+        // Play player cards
         playCards(currentPlayer);
 
-        throwAwayExcessiveCards(currentPlayer);
+        // Throw away cards
+        throwAwayExcessiveCards(currentPlayer);  // TODO check spelling
     }
 
     private void playCards(Player currentPlayer) {
@@ -119,7 +122,7 @@ public class BangGame {
     }
     private void incCurrentPlayerIndex() {
         this.playerCurrentIndex++;
-        this.playerCurrentIndex %= getAlivePlayers();
+        this.playerCurrentIndex %= players.size();
     }
 
     private Player getWinner() {
