@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.cards;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,7 +10,7 @@ public class CardDeck {
     protected final ArrayList<Card> cards;
     protected final ArrayList<Card> trash;
 
-    public CardDeck(ArrayList <Player> players) {
+    public CardDeck() {
         cards = new ArrayList<>();
         trash = new ArrayList<>();
 
@@ -51,46 +50,12 @@ public class CardDeck {
     }
     public ArrayList<Card> getTrash() { return trash;}
 
-    public Card getCard(int index) {
-        Card cardToReturn = this.getCards().get(index);
-        this.removeCard(index);
-        return cardToReturn;
-    }
-
     public void addCard(ArrayList<Card> cards) {
         this.cards.addAll(cards);
     }
 
-    public void addCard(Card card) {
-        this.cards.add(card);
-    }
-    public void addCardTrash(Card card) {
-        this.trash.add(card);
-    }
-    public void removeCardTrash(Card card) {
-        this.trash.add(card);
-    }
     public void removeCardsTrash() {
         trash.clear();
-    }
-
-    public void removeCard(int index) {
-        this.cards.remove(index);
-    }
-
-    public void removeCards() {
-        this.cards.clear();
-    }
-
-    public int getSize() {
-        return cards.size();
-    }
-
-    public void printCards(String name) {
-        System.out.println(name + " deck");
-        for (Card card : cards) {
-            System.out.println(card.getName());
-        }
     }
 
     public void shuffle() {

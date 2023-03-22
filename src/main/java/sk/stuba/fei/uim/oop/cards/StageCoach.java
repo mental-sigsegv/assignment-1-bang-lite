@@ -21,7 +21,7 @@ public class StageCoach extends Card {
 
         System.out.println("-> " + player.getName() + " has drawn 2 extra cards");
 
-        player.removeCard((Card) this);
+        player.removeCard(this);
         cardDeck.trash.add(this);
     }
 }

@@ -4,6 +4,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Barrel extends Card {
     private static final String CARD_NAME = "Barrel";
@@ -20,7 +21,7 @@ public class Barrel extends Card {
         super.playCard(player);
 
         for (Card card : player.getActiveCards()) {
-            if (card.getName() == "Barrel") {
+            if (Objects.equals(card.getName(), "Barrel")) {
                 System.out.println(ConsoleColors.RED + "You already have barrel in front of you!" + ConsoleColors.RESET);
                 return;
             }

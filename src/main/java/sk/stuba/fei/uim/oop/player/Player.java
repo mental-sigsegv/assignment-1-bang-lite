@@ -75,10 +75,6 @@ public class Player {
         return this.activeCards;
     }
 
-    public void removeCards() {
-        this.cards.clear();
-    }
-
     public void addCard(Card card) {
         this.cards.add(card);
     }
@@ -88,11 +84,7 @@ public class Player {
         this.cards.remove(index);
         return cardToRemove;
     }
-    public Card removeActiveCard(int index) {
-        Card cardToRemove = this.activeCards.get(index);
-        this.activeCards.remove(index);
-        return cardToRemove;
-    }
+
     public void removeCard(Card card) {
         this.cards.remove(card);
     }
@@ -104,35 +96,6 @@ public class Player {
             }
         }
         return null;
-    }
-
-    public boolean hasCard(Card card) {
-        for (Card c : cards) {
-            if (Objects.equals(c.getName(), card.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean hasActiveCard(Card card) {
-        for (Card c : activeCards) {
-            if (Objects.equals(c.getName(), card.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int getCardIndex(Card card) {
-        int count = 0;
-        for (Card c : cards) {
-            if (Objects.equals(c.getName(), card.getName())) {
-                return count;
-            }
-            count++;
-        }
-        return -1;
     }
 
     public ArrayList<Card> getPlayableCards() {
@@ -201,7 +164,7 @@ public class Player {
 
     public boolean hasCardMissed() {
         for (Card card : cards) {
-            if (card.getName() == "Missed") {
+            if (Objects.equals(card.getName(), "Missed")) {
                 return true;
             }
         }

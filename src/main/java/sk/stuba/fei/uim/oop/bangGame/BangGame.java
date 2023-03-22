@@ -9,8 +9,6 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static java.lang.Math.random;
-
 public class BangGame {
 
     private CardDeck cardDeck;
@@ -42,7 +40,7 @@ public class BangGame {
 
     }
     private void startGame() {
-        cardDeck = new CardDeck(players);
+        cardDeck = new CardDeck();
         cardDeck.shuffle();
 
         for (Player player : players) {
