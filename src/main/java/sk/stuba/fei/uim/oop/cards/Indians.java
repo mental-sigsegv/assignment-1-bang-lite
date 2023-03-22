@@ -6,10 +6,8 @@ import java.util.ArrayList;
 
 public class Indians extends Card {
     private static final String CARD_NAME = "Indians";
-    private static final String CARD_COLOR = "Brown";
-    private static final boolean CAN_BE_PLAYED_ON_SELF = true;
-    public Indians() {
-        super(CARD_NAME, CARD_COLOR, CAN_BE_PLAYED_ON_SELF);
+    public Indians(CardDeck cardDeck) {
+        super(CARD_NAME, cardDeck);
     }
 
     @Override
@@ -17,29 +15,21 @@ public class Indians extends Card {
         return true;
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
+    public void playCard(Player player, ArrayList<Player> players) {
+        super.playCard(player, players);
         System.out.println("Indians are coming...");
-        ArrayList<Card> cardsToThrowAway = new ArrayList<>();
-        cardsToThrowAway.add(this);
-
-        for (Player player : others) {
-            Card bang = new Bang();
-            if (player.hasCard(bang)) {
-                System.out.println("->" + player.getName() + " shot indians with bang.");
-                int indexOfCard = player.getCardIndex(bang);
-                Card removedCard = player.removeCard(indexOfCard);
-                cardsToThrowAway.add(removedCard);
+        for (Player p : players) {
+            if (p == player) {
+                continue;
+            }
+            if (player.hasCardBang()) {
+                System.out.println("->" + player.getName() + " shot indians with bang and didn't lose health.");
+                // TODO remove bang card
             } else {
                 System.out.println("->" + player.getName() + " was hit by a indian spear and lost 1 hp.");
                 player.removeHealth();
             }
         }
-        return cardsToThrowAway;
-    }
-
-    @Override
-    public ArrayList<Card> playCard(Player player) {
-        return null;
+        // TODO remove indians card
     }
 }

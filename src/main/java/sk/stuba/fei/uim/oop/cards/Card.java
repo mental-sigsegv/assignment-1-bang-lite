@@ -1,38 +1,21 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
+import sk.stuba.fei.uim.oop.cards.CardDeck;
 import java.util.ArrayList;
 
 public abstract class Card {
     private final String name;
-    private final String color;
-    private final boolean useOnSelf;
-    public Card(String name, String color) {
+    protected final CardDeck cardDeck;
+    public Card(String name, CardDeck cardDeck) {
         this.name = name;
-        this.color = color;
-        this.useOnSelf = true;
+        this.cardDeck = cardDeck;
     }
-    public Card(String name, String color, boolean useOnSelf) {
-        this.name = name;
-        this.color = color;
-        this.useOnSelf = useOnSelf;
-    }
-
     public String getName() {
         return this.name;
     }
-    public boolean getUseOnSelf() {
-        return this.useOnSelf;
-    }
-
-    public String getColor() {
-        return this.color;
-    }
     public abstract boolean canPlay();
-//    public abstract boolean canPlay(int index);
-    public abstract ArrayList<Card> playCard(Player caller, ArrayList<Player> others);
-
-    public abstract ArrayList<Card> playCard(Player player);
-
-
+    public void playCard(Player player, ArrayList<Player> players) {
+        System.out.println("--- " + player.getName() + " choose " + this.name + " card to play. ---");
+    }
 }

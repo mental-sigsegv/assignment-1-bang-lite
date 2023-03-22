@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.player;
 
+import sk.stuba.fei.uim.oop.cards.Bang;
 import sk.stuba.fei.uim.oop.cards.Card;
 import sk.stuba.fei.uim.oop.cards.CardDeck;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
@@ -68,6 +69,9 @@ public class Player {
 
     public ArrayList<Card> getActiveCards() {
         return this.cards;
+    }
+    public Card getActiveCard(int indexOfCard) {
+        return this.activeCards.get(indexOfCard);
     }
 
     public void removeCards() {
@@ -178,23 +182,13 @@ public class Player {
         return players.get(playerIndex-1);
     }
 
-
-    public void drawCards(CardDeck cardDeck, CardDeck cardTrashDeck, int numOfCards) {
-        System.out.println(this.getName() + "'s drawing " + numOfCards + " cards.");
-//        cardDeck.printCards("Card");
-//        cardTrashDeck.printCards("Trash");
-        if (numOfCards > cardDeck.getSize()) {
-            cardDeck.fillCardDeckFromTrashCardDeck(cardTrashDeck);
+    public boolean hasCardBang() {
+        for (Card card : cards) {
+            if (card.getName() == "Bang") {
+                return true;
+            }
         }
-
-        if (numOfCards > cardDeck.getSize()) {
-            numOfCards = cardDeck.getSize();
-            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
-        }
-
-
-        for (int i = 0; i < numOfCards; i++) {
-            this.addCard(cardDeck.getCard(0));
-        }
+        return false;
     }
+
 }

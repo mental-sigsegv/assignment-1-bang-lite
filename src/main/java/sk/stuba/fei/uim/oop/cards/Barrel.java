@@ -6,25 +6,16 @@ import java.util.ArrayList;
 
 public class Barrel extends Card {
     private static final String CARD_NAME = "Barrel";
-    private static final String CARD_COLOR = "Blue";
-
-    public Barrel() {
-        super(CARD_NAME, CARD_COLOR);
+    public Barrel(CardDeck cardDeck) {
+        super(CARD_NAME, cardDeck);
     }
 
     @Override
     public boolean canPlay() {
-        return false;
+        return true;
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Card> playCard(Player player) {
-
-        return null;
+    public void playCard(Player player, ArrayList<Player> players) {
+        super.playCard(player, players);
     }
 }

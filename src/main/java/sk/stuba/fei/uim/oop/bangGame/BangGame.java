@@ -44,13 +44,11 @@ public class BangGame {
     }
     private void startGame() {
         // Create card decks
-        this.cardDeck = new CardDeck(1);
-        this.cardTrashDeck = new CardDeck("empty");
+        this.cardDeck = new CardDeck(players);
         cardDeck.shuffle();
 
         for (Player player : players) {
-//            this.drawCards(player, 4);
-            player.drawCards(this.cardDeck, this.cardTrashDeck, 4);
+            cardDeck.drawCards(player, 4);
         }
 
         System.out.println("--- Game started... ---");
@@ -111,7 +109,7 @@ public class BangGame {
         checkPrison(currentPlayer);
 
 //        drawCards(currentPlayer, 2);
-        currentPlayer.drawCards(this.cardDeck, this.cardTrashDeck, 2);
+        cardDeck.drawCards(currentPlayer, 2);
         currentPlayer.printCards();
 
         playCards(currentPlayer);
@@ -189,7 +187,7 @@ public class BangGame {
 
     // TODO implement currentPlayer.checkDynamite();
     private void checkDynamite(Player currentPlayer) {
-        Card dynamite = new Dynamite();
+        Card dynamite = new Dynamite(this);
         if (currentPlayer.hasActiveCard(dynamite)) {
             if (!this.dynamiteChance()) {
                 currentPlayer.removeHealth(3);
@@ -202,10 +200,10 @@ public class BangGame {
 
     // TODO implement currentPlayer.checkPrison();
     private void checkPrison(Player currentPlayer) {
-        Card prison = new Prison();
-        if (currentPlayer.hasActiveCard(new Prison())) {
+        Card prison = new Prison(this);
+        if (currentPlayer.hasActiveCard(new Prison(this))) {
             if (!this.prisonChance()) {
-                new Prison();
+                new Prison(this);
                 // Do something
             }
 

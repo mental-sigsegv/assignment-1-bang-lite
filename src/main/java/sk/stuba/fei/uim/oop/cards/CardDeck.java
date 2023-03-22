@@ -1,64 +1,47 @@
 package sk.stuba.fei.uim.oop.cards;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import sk.stuba.fei.uim.oop.player.Player;
 
 public class CardDeck {
-    private final ArrayList<Card> cards;
+    protected final ArrayList<Card> cards;
+    protected final ArrayList<Card> trash;
 
-    // TODO remove this, instead use 1 constructor and decide based on argument
-    public CardDeck(int i) {
+    public CardDeck(ArrayList <Player> players) {
         cards = new ArrayList<>();
+        trash = new ArrayList<>();
 
-        cards.add(new Dynamite());
-        cards.add(new Barrel());
-        cards.add(new Indians());
-        cards.add(new Missed());
-        cards.add(new Missed());
-        cards.add(new Prison());
-        for (int j = 0; j < 5; j ++ ) {
-            cards.add(new Beer());
-            cards.add(new CatBalou());
-        }
-        for (int j = 0; j < 10; j ++ ) {
-            cards.add(new Bang());
-        }
-        cards.add(new CatBalou());
-        cards.add(new StageCoach());
-
+        setCards();
+        shuffle();
     }
-    public CardDeck(String string) {
-        cards = new ArrayList<>();
-    }
-    public CardDeck() {
-        cards = new ArrayList<>();
 
-        cards.add(new Dynamite());
+    private void setCards() {
+        cards.add(new Dynamite(this));
 
         for (int i=0; i<2; i++) {
-            cards.add(new Barrel());
-            cards.add(new Indians());
+            cards.add(new Barrel(this));
+            cards.add(new Indians(this));
         }
         for (int i=0; i<3; i++) {
-            cards.add(new Prison());
+            cards.add(new Prison(this));
         }
         for (int i=0; i<4; i++) {
-            cards.add(new StageCoach());
+            cards.add(new StageCoach(this));
         }
         for (int i=0; i<6; i++) {
-            cards.add(new CatBalou());
+            cards.add(new CatBalou(this));
         }
         for (int i=0; i<8; i++) {
-            cards.add(new Beer());
+            cards.add(new Beer(this));
         }
         for (int i=0; i<15; i++) {
-            cards.add(new Missed());
+            cards.add(new Missed(this));
         }
         for (int i=0; i<30; i++) {
-            cards.add(new Bang());
+            cards.add(new Bang(this));
         }
-
-        Collections.shuffle(cards);
     }
 
     public ArrayList<Card> getCards() {
@@ -77,6 +60,15 @@ public class CardDeck {
 
     public void addCard(Card card) {
         this.cards.add(card);
+    }
+    public void addCardTrash(Card card) {
+        this.trash.add(card);
+    }
+    public void removeCardTrash(Card card) {
+        this.trash.add(card);
+    }
+    public void removeCardsTrash() {
+        trash.clear();
     }
 
     public void removeCard(int index) {
@@ -102,9 +94,25 @@ public class CardDeck {
         Collections.shuffle(this.cards);
     }
 
-    public void fillCardDeckFromTrashCardDeck(CardDeck cardTrashDeck) {
-        this.addCard(cardTrashDeck.getCards());
-        this.removeCards();
-        this.shuffle();
+    public void fillCardDeckFromTrashCardDeck() {
+        addCard(trash);
+        removeCardsTrash();
+        shuffle();
+    }
+
+    public void drawCards(Player player, int numOfCards) {
+        System.out.println(player.getName() + " is drawing cards...");
+        if (numOfCards > cards.size()) {
+            fillCardDeckFromTrashCardDeck();
+        }
+
+        if (numOfCards > cards.size()) {
+            numOfCards = cards.size();
+            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
+        }
+
+        for (int i = 0; i < numOfCards; i++) {
+            player.addCard(cards.get(0));
+        }
     }
 }

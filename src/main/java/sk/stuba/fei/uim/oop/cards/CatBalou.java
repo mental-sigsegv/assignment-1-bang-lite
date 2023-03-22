@@ -9,7 +9,7 @@ public class CatBalou extends Card {
     private static final String CARD_NAME = "Cat Balou";
     private static final String CARD_COLOR = "Brown";
 
-    public CatBalou() {
+    public CatBalou(CardDeck cardDeck) {
         super(CARD_NAME, CARD_COLOR, false);
     }
 

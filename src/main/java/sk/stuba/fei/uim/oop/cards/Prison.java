@@ -8,8 +8,8 @@ public class Prison extends Card {
     private static final String CARD_NAME = "Prison";
     private static final String CARD_COLOR = "Blue";
 
-    public Prison() {
-        super(CARD_NAME, CARD_COLOR, false);
+    public Prison(CardDeck cardDeck) {
+        super(CARD_NAME, CARD_COLOR, false, cardDeck);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Prison extends Card {
         ArrayList<Card> cardsToThrowAway = new ArrayList<>();
         cardsToThrowAway.add(this);
 
-        Card prison = new Prison();
+        Card prison = new Prison(this);
 
         int playerIndex = 0;
         for (Player player : others) {
