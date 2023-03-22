@@ -13,7 +13,6 @@ import static java.lang.Math.random;
 public class BangGame {
 
     private CardDeck cardDeck;
-    private CardDeck cardTrashDeck;
     private final ArrayList<Player> players;
     private int playerCurrentIndex = 0;
     public BangGame() {
@@ -43,8 +42,7 @@ public class BangGame {
 
     }
     private void startGame() {
-        // Create card decks
-        this.cardDeck = new CardDeck(players);
+        cardDeck = new CardDeck(players);
         cardDeck.shuffle();
 
         for (Player player : players) {
@@ -53,28 +51,53 @@ public class BangGame {
 
         System.out.println("--- Game started... ---");
 
+        for (Card card : cardDeck.getCards()) {
+            System.out.println(card.getName());
+        }
+
         while (getAlivePlayers() > 1) {
-            Player currentPlayer = this.players.get(this.playerCurrentIndex);
+            Player currentPlayer = players.get(playerCurrentIndex);
 
             if (!currentPlayer.isAlive()) {
-                // TODO remove cards
-                players.remove(currentPlayer);
-                System.out.println(currentPlayer.getName() + " is dead!");
-//                this.incCurrentPlayerIndex();
-                playerCurrentIndex %= players.size();  // TODO fix name
+                incCurrentPlayerIndex();
                 continue;
             }
 
-            // TODO make turn
-            this.makeTurn(currentPlayer);
-
-            this.incCurrentPlayerIndex();
+            makeTurn(currentPlayer);
+            incCurrentPlayerIndex();
         }
-
-        // Select card to play
 
         System.out.println("Game finished!");
         System.out.println("Thw winner is " + Objects.requireNonNull(getWinner()).getName() + "! Congratulation!");
+    }
+    private void makeTurn(Player currentPlayer) {
+        System.out.println(currentPlayer.getName() + "'s turn...");
+        System.out.println(currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
+
+        cardDeck.drawCards(currentPlayer, 2);
+        currentPlayer.printCards();
+
+        playCards(currentPlayer);
+
+        throwAwayExcessiveCards(currentPlayer);
+    }
+
+    private void playCards(Player currentPlayer) {
+        int cardIndex;
+        int maxCardIndex = currentPlayer.getPlayableCards().size();
+        while (maxCardIndex > 0) {
+            currentPlayer.printPlayableCards();
+            cardIndex = ZKlavesnice.readInt("Enter number of card, that you would like to play. [0 to stop selection]");
+            if (cardIndex == 0) {
+                return;
+            } else if (cardIndex < 0 || cardIndex > maxCardIndex) {
+                System.out.println("You have entered wrong number.");
+                continue;
+            }
+            Card cardToPlay = currentPlayer.getPlayableCards().get(cardIndex - 1);
+            cardToPlay.playCard(currentPlayer, players);
+            maxCardIndex = currentPlayer.getPlayableCards().size();
+        }
     }
 
     private int getAlivePlayers() {
@@ -99,69 +122,6 @@ public class BangGame {
         }
         return null;
     }
-
-    private void makeTurn(Player currentPlayer) {
-        System.out.println(currentPlayer.getName() + "'s turn...");
-        System.out.println(currentPlayer.getName() + " has " + currentPlayer.getHealth() + " hp.");
-
-        checkDynamite(currentPlayer);
-
-        checkPrison(currentPlayer);
-
-//        drawCards(currentPlayer, 2);
-        cardDeck.drawCards(currentPlayer, 2);
-        currentPlayer.printCards();
-
-        playCards(currentPlayer);
-
-        throwAwayExcessiveCards(currentPlayer);
-    }
-
-    private void playCards(Player currentPlayer) {
-        int cardIndex;
-        int maxCardIndex = currentPlayer.getPlayableCards().size();
-        while (maxCardIndex > 0) {
-            currentPlayer.printPlayableCards();
-            cardIndex = ZKlavesnice.readInt("Enter number of card, that you would like to play. [0 to stop selection]");
-            if (cardIndex == 0) {
-                return;
-            } else if (cardIndex < 0 || cardIndex > maxCardIndex) {
-                System.out.println("You have entered wrong number.");
-                continue;
-            }
-            Card cardToPlay = currentPlayer.getPlayableCards().get(cardIndex - 1);
-
-            ArrayList<Card> cardsToRemove;
-            if (!cardToPlay.getUseOnSelf()) {
-                cardsToRemove = cardToPlay.playCard(currentPlayer, getOtherPlayers(currentPlayer));
-            } else {
-                cardsToRemove = cardToPlay.playCard(currentPlayer);
-            }
-
-            for (Card cardToRemove : cardsToRemove) {
-                currentPlayer.removeCard(cardToRemove);
-                this.cardTrashDeck.addCard(cardToRemove);
-
-            }
-
-            maxCardIndex = currentPlayer.getPlayableCards().size();
-        }
-    }
-
-    private ArrayList<Player> getOtherPlayers(Player currentPlayer) {
-
-        ArrayList<Player> otherPlayers = new ArrayList<>();
-
-        for (Player player : this.players) {
-            if (player != currentPlayer) {
-                otherPlayers.add(player);
-            }
-        }
-
-        otherPlayers.remove(currentPlayer);
-        return otherPlayers;
-    }
-
     private void throwAwayExcessiveCards(Player currentPlayer) {
         int numberOfCards = currentPlayer.getCards().size();
         int maxNumberOfCards = currentPlayer.getHealth();
@@ -179,76 +139,9 @@ public class BangGame {
                     continue;
                 }
                 thrownCard = currentPlayer.removeCard(indexOfCard - 1);
-                this.cardTrashDeck.addCard(thrownCard);
+                cardDeck.getTrash().add(thrownCard);
                 numberOfCards = currentPlayer.getCards().size();
             }
         }
-    }
-
-    // TODO implement currentPlayer.checkDynamite();
-    private void checkDynamite(Player currentPlayer) {
-        Card dynamite = new Dynamite(this);
-        if (currentPlayer.hasActiveCard(dynamite)) {
-            if (!this.dynamiteChance()) {
-                currentPlayer.removeHealth(3);
-                currentPlayer.removeActiveCard(dynamite);
-            }
-            // TODO move dynamite to previous player, play card dynamite, implement % chance in dynamite class
-            // currentPlayer.getCard -> dynamite.play()
-        }
-    }
-
-    // TODO implement currentPlayer.checkPrison();
-    private void checkPrison(Player currentPlayer) {
-        Card prison = new Prison(this);
-        if (currentPlayer.hasActiveCard(new Prison(this))) {
-            if (!this.prisonChance()) {
-                new Prison(this);
-                // Do something
-            }
-
-            // TODO remove card and add to trash deck
-        }
-    }
-
-    // TODO draw card on player ?
-    private void drawCards(Player currentPlayer, int numOfCards) {
-//        System.out.println(currentPlayer.getName() + "'s drawing " + numOfCards + " cards.");
-////        cardDeck.printCards("Card");
-////        cardTrashDeck.printCards("Trash");
-//
-//        if (numOfCards > this.cardDeck.getSize()) {
-//            fillCardDeckFromTrashCardDeck();
-//        }
-//
-//        if (numOfCards > this.cardDeck.getSize()) {
-//            numOfCards = this.cardDeck.getSize();
-//            System.out.println("There are not enough cards in deck. You will draw " + numOfCards + " cards.");
-//        }
-//
-//
-//        for (int i = 0; i < numOfCards; i++) {
-//            currentPlayer.addCard(this.cardDeck.getCard(0));
-//        }
-    }
-
-
-
-    private boolean prisonChance() {
-        double randomChance = random();
-        return randomChance <= 0.25;
-    }
-
-    private boolean dynamiteChance() {
-        double randomChance = random();
-        return randomChance <= 1 / 8.0;
-    }
-
-    public CardDeck getCardDeck() {
-        return this.cardDeck;
-    }
-
-    public CardDeck getCardTrashDeck() {
-        return this.cardTrashDeck;
     }
 }

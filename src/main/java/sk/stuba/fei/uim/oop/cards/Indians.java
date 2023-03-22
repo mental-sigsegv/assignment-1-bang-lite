@@ -18,18 +18,25 @@ public class Indians extends Card {
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
         System.out.println("Indians are coming...");
-        for (Player p : players) {
-            if (p == player) {
+        for (Player player2 : players) {
+            if (player2 == player) {
                 continue;
             }
-            if (player.hasCardBang()) {
-                System.out.println("->" + player.getName() + " shot indians with bang and didn't lose health.");
-                // TODO remove bang card
+            if (player2.hasCardBang()) {
+                System.out.println("->" + player2.getName() + " shot indians with card bang and didn't lose health.");
+                for (Card card : player2.getCards()) {
+                    if (card.getName() == "Bang") {
+                        player2.getCards().remove(card);
+                        cardDeck.trash.add(card);
+                        break;
+                    }
+                }
             } else {
-                System.out.println("->" + player.getName() + " was hit by a indian spear and lost 1 hp.");
-                player.removeHealth();
+                System.out.println("->" + player2.getName() + " was hit by an indian spear and lost 1 hp.");
+                player2.removeHealth();
             }
         }
-        // TODO remove indians card
+        player.getCards().remove(this);
+        cardDeck.trash.add(this);
     }
 }

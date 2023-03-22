@@ -4,7 +4,7 @@ import sk.stuba.fei.uim.oop.cards.Bang;
 import sk.stuba.fei.uim.oop.cards.Card;
 import sk.stuba.fei.uim.oop.cards.CardDeck;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
-
+import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,39 +12,36 @@ import java.util.Objects;
 public class Player {
     private final String name;
     private int health;
-    private final ArrayList<Card> cards;
-    private final ArrayList<Card> activeCards;
+    protected final ArrayList<Card> cards;
+    protected final ArrayList<Card> activeCards;
+    private ConsoleColors consoleColors;
 
     public Player(String name) {
         this.name = name;
         this.health = 4;
         this.cards = new ArrayList<>();
         this.activeCards = new ArrayList<>();
+        this.consoleColors = new ConsoleColors();
     }
 
     public String getName() {
-
         return this.name;
     }
-
     public boolean isAlive() {
         return this.health > 0;
     }
-
     public void removeHealth() {
         this.health--;
     }
     public void removeHealth(int damage) {
         this.health -= damage;
     }
-
     public void addHealth() {
         this.health++;
     }
     public int getHealth() {
         return this.health;
     }
-
     public ArrayList<Card> getCards() {
         return this.cards;
     }
@@ -145,7 +142,7 @@ public class Player {
     }
 
     public void printPlayableCards() {
-        System.out.println("Cards that can be played by " + this.getName() + ":");
+        System.out.println(consoleColors.WHITE_UNDERLINED + "Cards that can be played by " + this.getName() + ":" + consoleColors.RESET);
         int count = 1;
         for (Card playableCard : this.getPlayableCards()) {
             System.out.println(count + ". " + playableCard.getName());

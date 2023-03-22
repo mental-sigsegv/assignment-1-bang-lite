@@ -6,28 +6,21 @@ import java.util.ArrayList;
 
 public class StageCoach extends Card {
     private static final String CARD_NAME = "StageCoach";
-    private static final String CARD_COLOR = "Brown";
-
     public StageCoach(CardDeck cardDeck) {
-        super(CARD_NAME, CARD_COLOR, true, cardDeck);
+        super(CARD_NAME, cardDeck);
     }
 
     @Override
     public boolean canPlay() {
-        return false;
+        return (cardDeck.cards.size() + cardDeck.trash.size()) >= 2;
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
-        return null;
-    }
+    public void playCard(Player player, ArrayList<Player> players) {
+        super.playCard(player, players);
+        cardDeck.drawCards(player, 2);
+        player.removeCard((Card) this);
+        cardDeck.trash.add(this);
 
-    @Override
-    public ArrayList<Card> playCard(Player player) {
-        System.out.println(player.getName() + " is going to draw 2 extra cards.");
-        ArrayList<Card> cardsToThrowAway = new ArrayList<>();
-//        player.drawCards();
-        cardsToThrowAway.add(this);
-        return cardsToThrowAway;
+        System.out.println(player.getName() + " has drawn 2 extra cards");
     }
 }

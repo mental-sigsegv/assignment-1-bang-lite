@@ -13,10 +13,13 @@ public class Beer extends Card {
     public boolean canPlay() {
         return true;
     }
-
+    @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
         player.addHealth();
+        player.getCards().remove(this);
         cardDeck.trash.add(this);
+
+        System.out.println(player.getName() + " has gained 1hp. Player's current hp: " + player.getHealth() + "hp");
     }
 }

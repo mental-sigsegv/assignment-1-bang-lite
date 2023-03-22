@@ -6,10 +6,8 @@ import java.util.ArrayList;
 
 public class Missed extends Card {
     private static final String CARD_NAME = "Missed";
-    private static final String CARD_COLOR = "Brown";
-
     public Missed(CardDeck cardDeck) {
-        super(CARD_NAME, CARD_COLOR,false, cardDeck);
+        super(CARD_NAME, cardDeck);
     }
 
     @Override
@@ -17,14 +15,8 @@ public class Missed extends Card {
         return false;
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
-        return null;
+    public void playCard(Player player, ArrayList<Player> players) {
+        super.playCard(player, players);
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player player) {
-
-        return null;
-    }
 }

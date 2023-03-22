@@ -6,26 +6,16 @@ import java.util.ArrayList;
 
 public class Dynamite extends Card {
     private static final String CARD_NAME = "Dynamite";
-    private static final String CARD_COLOR = "Blue";
-    private static final boolean CAN_BE_PLAYED_ON_SELF = false;
-
     public Dynamite(CardDeck cardDeck) {
-        super(CARD_NAME, CARD_COLOR, CAN_BE_PLAYED_ON_SELF, cardDeck);
+        super(CARD_NAME, cardDeck);
     }
 
     @Override
     public boolean canPlay() {
-        return true;
+        return false;
     }
 
-    @Override
-    public ArrayList<Card> playCard(Player caller, ArrayList<Player> others) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Card> playCard(Player player) {
-
-        return null;
+    public void playCard(Player player, ArrayList<Player> players) {
+        super.playCard(player, players);
     }
 }

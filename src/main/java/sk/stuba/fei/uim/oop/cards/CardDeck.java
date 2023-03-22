@@ -45,8 +45,9 @@ public class CardDeck {
     }
 
     public ArrayList<Card> getCards() {
-        return this.cards;
+        return cards;
     }
+    public ArrayList<Card> getTrash() { return trash;}
 
     public Card getCard(int index) {
         Card cardToReturn = this.getCards().get(index);
@@ -112,7 +113,7 @@ public class CardDeck {
         }
 
         for (int i = 0; i < numOfCards; i++) {
-            player.addCard(cards.get(0));
+            player.addCard(cards.remove(0));
         }
     }
 }
