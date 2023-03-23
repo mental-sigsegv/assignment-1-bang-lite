@@ -1,10 +1,7 @@
 package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Barrel extends Card {
     private static final String CARD_NAME = "Barrel";

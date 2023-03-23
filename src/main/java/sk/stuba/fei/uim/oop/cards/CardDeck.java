@@ -17,14 +17,17 @@ public class CardDeck {
 
         this.players = players;
 
+        setTrashReference();
         setCards();
         shuffle();
 
-        cards.add(0, new Dynamite(this));
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
+        for (int i = 0; i < 4; i++) {
+            cards.add(0, new Bang(this));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            cards.add(0, new Beer(this));
+        }
 
     }
 
@@ -52,6 +55,11 @@ public class CardDeck {
         }
         for (int i=0; i<30; i++) {
             cards.add(new Bang(this));
+        }
+    }
+    private void setTrashReference() {
+        for (Player player : players) {
+            player.setTrashReference(trash);
         }
     }
 

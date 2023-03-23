@@ -10,6 +10,7 @@ public class Player {
     private int health;
     protected final ArrayList<Card> cards;
     protected final ArrayList<Card> activeCards;
+    protected ArrayList<Card> trashReference;
 
     public Player(String name) {
         this.name = name;
@@ -32,6 +33,9 @@ public class Player {
         this.health -= damage;
         checkDead();
     }
+    public void setTrashReference(ArrayList<Card> trashReference) {
+        this.trashReference = trashReference;
+    }
     public void addHealth() {
         this.health++;
     }
@@ -40,8 +44,15 @@ public class Player {
     }
     public void checkDead() {
         if (!isAlive()) {
+            wipeCards();
             System.out.println(ConsoleColors.RED + "--- " + getName() + " IS DEAD! ---" + ConsoleColors.RESET);
         }
+    }
+    private void wipeCards() {
+        trashReference.addAll(cards);
+        trashReference.addAll(activeCards);
+        cards.clear();
+        activeCards.clear();
     }
     public ArrayList<Card> getCards() {
         return this.cards;
