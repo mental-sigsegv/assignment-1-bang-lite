@@ -22,7 +22,7 @@ public class Barrel extends Card {
 
         for (Card card : player.getActiveCards()) {
             if (Objects.equals(card.getName(), "Barrel")) {
-                System.out.println(ConsoleColors.RED + "You already have barrel in front of you!" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "--- You already have barrel in front of you! ---" + ConsoleColors.RESET);
                 return;
             }
         }

@@ -6,7 +6,7 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import java.util.ArrayList;
 
 public class CatBalou extends Card {
-    private static final String CARD_NAME = "Cat Balou";
+    private static final String CARD_NAME = "CatBalou";
     public CatBalou(CardDeck cardDeck) {
         super(CARD_NAME, cardDeck);
     }

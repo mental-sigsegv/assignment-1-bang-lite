@@ -131,10 +131,10 @@ public class Player {
             if (Objects.equals(card.getName(), "Prison")) {
                 card.playCard(this);
                 if (Math.random() < 1/4.0) {
-                    System.out.println(ConsoleColors.GREEN + getName() + " escaped prison." + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN + "-> " + getName() + " escaped prison." + ConsoleColors.RESET);
                     return true;
                 } else {
-                    System.out.println(ConsoleColors.RED + getName() + " didn't escape prison. He must wait 1 round." + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + "-> " + getName() + " didn't escape prison. He must wait 1 round." + ConsoleColors.RESET);
                     return false;
                 }
             }

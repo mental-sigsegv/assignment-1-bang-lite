@@ -41,7 +41,6 @@ public class BangGame {
     }
     private void startGame() {
         cardDeck = new CardDeck();
-        cardDeck.shuffle();
 
         for (Player player : players) {
             cardDeck.drawCards(player, 4);

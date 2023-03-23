@@ -4,6 +4,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Prison extends Card {
     private static final String CARD_NAME = "Prison";
@@ -22,10 +23,15 @@ public class Prison extends Card {
         ArrayList<Player> filterPlayers = new ArrayList<>();
 
         for (Player other : players) {
+            if (other == player) {
+                continue;
+            }
+
             boolean hasPrison = false;
             for (Card card : other.getActiveCards()) {
-                if (card.getName() == "Prison") {
+                if (Objects.equals(card.getName(), "Prison")) {
                     hasPrison = true;
+                    break;
                 }
             }
             if (!hasPrison) {

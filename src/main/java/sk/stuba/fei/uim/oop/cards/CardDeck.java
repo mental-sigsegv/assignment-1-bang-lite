@@ -7,8 +7,8 @@ import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 
 public class CardDeck {
-    protected final ArrayList<Card> cards;
-    protected final ArrayList<Card> trash;
+    protected ArrayList<Card> cards;
+    protected ArrayList<Card> trash;
 
     public CardDeck() {
         cards = new ArrayList<>();
@@ -16,12 +16,11 @@ public class CardDeck {
 
         setCards();
         shuffle();
-        cards.add(0, new Barrel(this));
-        cards.add(1, new Barrel(this));
 
-        for (Card card : cards) {
-            System.out.println(card.getName());
-        }
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
     }
 
     private void setCards() {
@@ -56,22 +55,15 @@ public class CardDeck {
     }
     public ArrayList<Card> getTrash() { return trash;}
 
-    public void addCard(ArrayList<Card> cards) {
-        this.cards.addAll(cards);
-    }
-
-    public void removeCardsTrash() {
-        trash.clear();
-    }
-
     public void shuffle() {
         Collections.shuffle(this.cards);
     }
 
+    // TODO refactor
     public void fillCardDeckFromTrashCardDeck() {
         System.out.println("--- Card deck has been refilled and shuffled. ---");
-        addCard(trash);
-        removeCardsTrash();
+        cards.addAll(trash);
+        trash.clear();
         shuffle();
     }
 
@@ -85,7 +77,6 @@ public class CardDeck {
             numOfCards = cards.size();
             System.out.println(ConsoleColors.RED + "--- There are not enough cards in deck. You will draw " + numOfCards + " cards. ---" + ConsoleColors.RESET);
         }
-
         System.out.print("[ " + ConsoleColors.CYAN);
         for (int i = 0; i < numOfCards; i++) {
             Card card = cards.remove(0);
