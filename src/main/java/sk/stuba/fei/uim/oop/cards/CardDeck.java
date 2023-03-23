@@ -17,10 +17,7 @@ public class CardDeck {
         setCards();
         shuffle();
 
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
-        cards.add(0, new Prison(this));
+        cards.add(0, new Dynamite(this));
     }
 
     private void setCards() {
@@ -59,26 +56,23 @@ public class CardDeck {
         Collections.shuffle(this.cards);
     }
 
-    // TODO refactor
     public void fillCardDeckFromTrashCardDeck() {
         System.out.println("--- Card deck has been refilled and shuffled. ---");
         cards.addAll(trash);
         trash.clear();
         shuffle();
     }
-
-    public void drawCards(Player player, int numOfCards) {
-        System.out.println("-> " + player.getName() + " is drawing " + numOfCards + " cards...");
-        if (numOfCards > cards.size()) {
+    public void drawCards(Player player, int cardsToDraw) {
+        System.out.println("-> " + player.getName() + " is drawing " + cardsToDraw + " cards...");
+        if (cardsToDraw > cards.size()) {
             fillCardDeckFromTrashCardDeck();
         }
-
-        if (numOfCards > cards.size()) {
-            numOfCards = cards.size();
-            System.out.println(ConsoleColors.RED + "--- There are not enough cards in deck. You will draw " + numOfCards + " cards. ---" + ConsoleColors.RESET);
+        if (cardsToDraw > cards.size()) {
+            cardsToDraw = cards.size();
+            System.out.println(ConsoleColors.RED + "--- There are not enough cards in deck. You will draw " + cardsToDraw + " cards. ---" + ConsoleColors.RESET);
         }
         System.out.print("[ " + ConsoleColors.CYAN);
-        for (int i = 0; i < numOfCards; i++) {
+        for (int i = 0; i < cardsToDraw; i++) {
             Card card = cards.remove(0);
             System.out.print(card.getName() + " ");
             player.addCard(card);

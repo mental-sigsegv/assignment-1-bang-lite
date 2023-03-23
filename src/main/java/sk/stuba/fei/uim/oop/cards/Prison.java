@@ -2,12 +2,10 @@ package sk.stuba.fei.uim.oop.cards;
 
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Prison extends Card {
-    private static final String CARD_NAME = "Prison";
+    protected static final String CARD_NAME = "Prison";
     public Prison(CardDeck cardDeck) {
         super(CARD_NAME, cardDeck);
     }
@@ -29,7 +27,7 @@ public class Prison extends Card {
 
             boolean hasPrison = false;
             for (Card card : other.getActiveCards()) {
-                if (Objects.equals(card.getName(), "Prison")) {
+                if (card instanceof Prison) {
                     hasPrison = true;
                     break;
                 }

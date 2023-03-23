@@ -22,15 +22,20 @@ public class Dynamite extends Card {
         player.removeCard(this);
         player.getActiveCards().add(this);
     }
-    public boolean checkChance(Player player, ArrayList<Player> players) {
+    public void checkChance(Player player, ArrayList<Player> players) {
         if (Math.random() < 1/8.0) {
-            System.out.println(ConsoleColors.RED + "--- " + player.getName() + " has been bombed! ---" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + "--- " + player.getName() + " has been bombed and lost 3hp! ---" + ConsoleColors.RESET);
             player.removeHealth(3);
-            player.getActiveCards().remove(this);
             cardDeck.trash.add(this);
-            return false;
+            player.getActiveCards().remove(this);
+            return;
         }
-        int index = players.indexOf(player)-1;
+
+        System.out.println(ConsoleColors.GREEN + "--- " + player.getName() + " didn't explode and dynamite was passed! ---" + ConsoleColors.RESET);
+        player.getActiveCards().remove(this);
+
+        int index = players.indexOf(player);
+        index--;
 
         while (true) {
             if (index < 0) {
@@ -43,9 +48,6 @@ public class Dynamite extends Card {
             }
 
         }
-        System.out.println("--- " + player.getName() + " didn't explode and dynamite was passed! ---");
-        player.getActiveCards().remove(this);
         players.get(index).getActiveCards().add(this);
-        return true;
     }
 }

@@ -30,13 +30,13 @@ public class BangGame {
         }
 
         // Set players name
-        this.players = new ArrayList<>();
+        players = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++) {
-            this.players.add(new Player(ZKlavesnice.readString("--- Enter name for " + ConsoleColors.YELLOW + "PLAYER " + (i+1) + ConsoleColors.RESET + ": ---")));
+            players.add(new Player(ZKlavesnice.readString("--- Enter name for " + ConsoleColors.YELLOW + "PLAYER " + (i+1) + ConsoleColors.RESET + ": ---")));
         }
 
         // Start game
-        this.startGame();
+        startGame();
 
     }
     private void startGame() {
@@ -68,9 +68,7 @@ public class BangGame {
         System.out.println("-> " + currentPlayer.getName() + " has " + ConsoleColors.CYAN + currentPlayer.getHealth() + " hp." + ConsoleColors.RESET);
 
         // Check dynamite
-        if (!currentPlayer.checkDynamite(players)) {
-            return;
-        }
+        currentPlayer.checkDynamite(players);
 
         // Check prison
         if (!currentPlayer.checkPrison()) {
@@ -79,9 +77,6 @@ public class BangGame {
 
         // Draw cards
         cardDeck.drawCards(currentPlayer, 2);
-
-        // Print player cards
-        currentPlayer.printCards();
 
         // Play player cards
         playCards(currentPlayer);
@@ -95,6 +90,9 @@ public class BangGame {
     }
 
     private void playCards(Player currentPlayer) {
+        // Print player cards
+        currentPlayer.printCards();
+
         int cardIndex;
         int maxCardIndex = currentPlayer.getPlayableCards().size();
         while (maxCardIndex > 0 && getAlivePlayers() > 1) {
@@ -114,7 +112,7 @@ public class BangGame {
 
     private int getAlivePlayers() {
         int numOfAlivePlayers = 0;
-        for (Player player : this.players) {
+        for (Player player : players) {
             if (player.isAlive()) {
                 numOfAlivePlayers++;
             }
@@ -122,8 +120,8 @@ public class BangGame {
         return numOfAlivePlayers;
     }
     private void incCurrentPlayerIndex() {
-        this.playerCurrentIndex++;
-        this.playerCurrentIndex %= players.size();
+        playerCurrentIndex++;
+        playerCurrentIndex %= players.size();
     }
 
     private Player getWinner() {

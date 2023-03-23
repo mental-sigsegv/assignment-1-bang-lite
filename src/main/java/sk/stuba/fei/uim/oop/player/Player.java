@@ -1,11 +1,9 @@
 package sk.stuba.fei.uim.oop.player;
 
-import sk.stuba.fei.uim.oop.cards.Card;
-import sk.stuba.fei.uim.oop.cards.Dynamite;
+import sk.stuba.fei.uim.oop.cards.*;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Player {
     private final String name;
@@ -72,30 +70,24 @@ public class Player {
     }
 
     public ArrayList<Card> getActiveCards() {
-        return this.activeCards;
+        return activeCards;
     }
 
     public void addCard(Card card) {
-        this.cards.add(card);
+        cards.add(card);
     }
 
     public Card removeCard(int index) {
-        Card cardToRemove = this.cards.get(index);
-        this.cards.remove(index);
+        Card cardToRemove = cards.get(index);
+        cards.remove(index);
         return cardToRemove;
     }
 
     public void removeCard(Card card) {
-        this.cards.remove(card);
+        cards.remove(card);
     }
-    public Card removeActiveCard(Card card) {
-        for (Card c : activeCards) {
-            if (Objects.equals(c.getName(), card.getName())) {
-                activeCards.remove(c);
-                return c;
-            }
-        }
-        return null;
+    public void removeActiveCard(Card card) {
+        activeCards.remove(card);
     }
 
     public ArrayList<Card> getPlayableCards() {
@@ -111,24 +103,23 @@ public class Player {
     public void printPlayableCards() {
         System.out.println(ConsoleColors.YELLOW_UNDERLINED + getName() + "'s cards that can be played: " + ConsoleColors.RESET);
         int count = 1;
-        for (Card playableCard : this.getPlayableCards()) {
+        for (Card playableCard : getPlayableCards()) {
             System.out.println(count + ConsoleColors.YELLOW + ". " + playableCard.getName() + ConsoleColors.RESET);
             count++;
         }
     }
 
-    public boolean checkDynamite(ArrayList<Player> players) {
+    public void checkDynamite(ArrayList<Player> players) {
         for (Card card : activeCards) {
-            if (Objects.equals(card.getName(), "Dynamite")) {
-                return ((Dynamite) card).checkChance(this, players);
+            if (card instanceof Dynamite) {
+                ((Dynamite) card).checkChance(this, players);
+                return;
             }
         }
-        return true;
     }
-
     public boolean checkPrison() {
         for (Card card : activeCards) {
-            if (Objects.equals(card.getName(), "Prison")) {
+            if (card instanceof Prison) {
                 card.playCard(this);
                 if (Math.random() < 1/4.0) {
                     System.out.println(ConsoleColors.GREEN + "-> " + getName() + " escaped prison." + ConsoleColors.RESET);
@@ -141,36 +132,30 @@ public class Player {
         }
         return true;
     }
-
-
-
     public boolean hasCardBang() {
         for (Card card : cards) {
-            if (Objects.equals(card.getName(), "Bang")) {
+            if (card instanceof Bang) {
                 return true;
             }
         }
         return false;
     }
-
     public boolean hasCardBarrel() {
         for (Card card : activeCards) {
-            if (Objects.equals(card.getName(), "Barrel")) {
+            if (card instanceof Barrel) {
                 return true;
             }
         }
         return false;
     }
-
     public boolean hasCardMissed() {
         for (Card card : cards) {
-            if (Objects.equals(card.getName(), "Missed")) {
+            if (card instanceof Missed) {
                 return true;
             }
         }
         return false;
     }
-
     public Player chooseTarget(ArrayList<Player> players) {
         ArrayList<Player> targets = new ArrayList<>();
 

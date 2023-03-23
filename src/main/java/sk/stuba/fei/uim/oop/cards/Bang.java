@@ -36,7 +36,7 @@ public class Bang extends Card {
     private boolean useMissed(Player player) {
         if (player.hasCardMissed()) {
             for (Card card : player.getCards()) {
-                if (Objects.equals(card.getName(), "Missed")) {
+                if (card instanceof Missed) {
                     card.playCard(player);
                     return true;
                 }
@@ -48,8 +48,8 @@ public class Bang extends Card {
     private boolean useBarrel(Player player) {
         if (player.hasCardBarrel()) {
             for (Card card : player.getActiveCards()) {
-                if (Objects.equals(card.getName(), "Barrel")) {
-                    return ((Barrel) card).checkChance(player);
+                if (card instanceof Barrel) {
+                    return ((Barrel) card).checkChance();
                 }
             }
         }
