@@ -9,7 +9,7 @@ public class Missed extends Card {
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
         return false;
     }
 

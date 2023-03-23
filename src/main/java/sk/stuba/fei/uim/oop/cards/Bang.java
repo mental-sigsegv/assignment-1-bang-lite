@@ -12,7 +12,7 @@ public class Bang extends Card {
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
         return true;
     }
     @Override

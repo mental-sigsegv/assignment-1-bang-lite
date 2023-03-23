@@ -9,15 +9,23 @@ import sk.stuba.fei.uim.oop.player.Player;
 public class CardDeck {
     protected ArrayList<Card> cards;
     protected ArrayList<Card> trash;
+    protected ArrayList<Player> players;
 
-    public CardDeck() {
+    public CardDeck(ArrayList<Player> players) {
         cards = new ArrayList<>();
         trash = new ArrayList<>();
+
+        this.players = players;
 
         setCards();
         shuffle();
 
         cards.add(0, new Dynamite(this));
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
+        cards.add(0, new Prison(this));
+
     }
 
     private void setCards() {

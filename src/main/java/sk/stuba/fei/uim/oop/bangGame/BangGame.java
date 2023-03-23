@@ -40,7 +40,7 @@ public class BangGame {
 
     }
     private void startGame() {
-        cardDeck = new CardDeck();
+        cardDeck = new CardDeck(players);
 
         for (Player player : players) {
             cardDeck.drawCards(player, 4);

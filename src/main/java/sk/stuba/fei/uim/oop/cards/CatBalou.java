@@ -12,7 +12,7 @@ public class CatBalou extends Card {
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
         return true;
     }
     @Override
@@ -30,9 +30,9 @@ public class CatBalou extends Card {
 
         int typeOfDeck = -1;
 
-        while (typeOfDeck < 0 || typeOfDeck > 1) {
-            typeOfDeck = ZKlavesnice.readInt("0 Cards on hand\n1 Cards on table");
-            if (typeOfDeck < 0 || typeOfDeck > 1) {
+        while (typeOfDeck < 1 || typeOfDeck > 2) {
+            typeOfDeck = ZKlavesnice.readInt("1. Cards on hand\n2. Cards on table");
+            if (typeOfDeck < 1 || typeOfDeck > 2) {
                 System.out.println(" !!! Try again! !!!");
             }
         }
@@ -42,7 +42,7 @@ public class CatBalou extends Card {
 
         int cardDeckSize;
         Card cardToRemove;
-        if (typeOfDeck == 0) {
+        if (typeOfDeck == 1) {
             cardDeckSize = target.getCards().size();
             if (cardDeckSize == 0) {
                 return;

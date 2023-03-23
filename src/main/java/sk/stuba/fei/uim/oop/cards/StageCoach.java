@@ -10,7 +10,7 @@ public class StageCoach extends Card {
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
         return (cardDeck.cards.size() + cardDeck.trash.size()) >= 2;
     }
     @Override

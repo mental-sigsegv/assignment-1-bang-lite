@@ -10,7 +10,7 @@ public class Beer extends Card {
         super(CARD_NAME, cardDeck);
     }
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
         return true;
     }
     @Override

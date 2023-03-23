@@ -13,19 +13,17 @@ public class Barrel extends Card {
     }
 
     @Override
-    public boolean canPlay() {
+    public boolean canPlay(Player player) {
+        for (Card card : player.getActiveCards()) {
+            if (card instanceof Barrel) {
+                return false;
+            }
+        }
         return true;
     }
     @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player);
-
-        for (Card card : player.getActiveCards()) {
-            if (Objects.equals(card.getName(), "Barrel")) {
-                System.out.println(ConsoleColors.RED + "--- You already have barrel in front of you! ---" + ConsoleColors.RESET);
-                return;
-            }
-        }
 
         player.getCards().remove(this);
         player.getActiveCards().add(this);

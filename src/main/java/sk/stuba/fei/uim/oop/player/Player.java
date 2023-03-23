@@ -93,7 +93,7 @@ public class Player {
     public ArrayList<Card> getPlayableCards() {
         ArrayList<Card> playableCards = new ArrayList<>();
         for (Card card : cards) {
-            if (card.canPlay()) {
+            if (card.canPlay(this)) {
                 playableCards.add(card);
             }
         }

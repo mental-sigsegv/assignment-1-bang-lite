@@ -6,43 +6,37 @@ import java.util.ArrayList;
 
 public class Prison extends Card {
     protected static final String CARD_NAME = "Prison";
+    private ArrayList<Player> canTarget;
     public Prison(CardDeck cardDeck) {
         super(CARD_NAME, cardDeck);
     }
 
     @Override
-    public boolean canPlay() {
-        return true;
+    public boolean canPlay(Player player) {
+        canTarget = new ArrayList<>();
+
+        for (Player target : cardDeck.players) {
+            if (target != player && target.isAlive()) {
+                boolean targetHasPrisonActive = false;
+                for (Card card : target.getActiveCards()) {
+                    if (card instanceof Prison) {
+                        targetHasPrisonActive = true;
+                        break;
+                    }
+                }
+                if (!targetHasPrisonActive) {
+                    canTarget.add(target);
+                }
+            }
+        }
+
+        return canTarget.size() > 0;
     }
     @Override
     public void playCard(Player player, ArrayList<Player> players) {
         super.playCard(player, players);
 
-        ArrayList<Player> filterPlayers = new ArrayList<>();
-
-        for (Player other : players) {
-            if (other == player) {
-                continue;
-            }
-
-            boolean hasPrison = false;
-            for (Card card : other.getActiveCards()) {
-                if (card instanceof Prison) {
-                    hasPrison = true;
-                    break;
-                }
-            }
-            if (!hasPrison) {
-                filterPlayers.add(other);
-            }
-        }
-
-        if (filterPlayers.size() == 0) {
-            System.out.println(ConsoleColors.RED + "--- You cant use card prison on anyone! ---" + ConsoleColors.RESET);
-            return;
-        }
-
-        Player target = player.chooseTarget(filterPlayers);
+        Player target = player.chooseTarget(canTarget);
         target.getActiveCards().add(this);
         player.removeCard(this);
     }
