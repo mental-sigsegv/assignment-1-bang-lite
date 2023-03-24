@@ -28,7 +28,7 @@ public class Indians extends Card {
                 for (Card card : player2.getCards()) {
                     if (card instanceof Bang) {
                         player2.getCards().remove(card);
-                        cardDeck.trash.add(card);
+                        cardDeck.getTrash().add(card);
                         break;
                     }
                 }
@@ -38,6 +38,6 @@ public class Indians extends Card {
             }
         }
         player.getCards().remove(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
     }
 }

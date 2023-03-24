@@ -7,9 +7,9 @@ import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
 
 public class CardDeck {
-    protected ArrayList<Card> cards;
-    protected ArrayList<Card> trash;
-    protected ArrayList<Player> players;
+    private ArrayList<Card> cards;
+    private ArrayList<Card> trash;
+    private ArrayList<Player> players;
 
     public CardDeck(ArrayList<Player> players) {
         cards = new ArrayList<>();
@@ -53,6 +53,12 @@ public class CardDeck {
         }
     }
     public ArrayList<Card> getTrash() { return trash;}
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
     public void shuffle() {
         Collections.shuffle(this.cards);
     }

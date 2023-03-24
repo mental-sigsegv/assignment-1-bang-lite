@@ -5,7 +5,7 @@ import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import java.util.ArrayList;
 
 public class Prison extends Card {
-    protected static final String CARD_NAME = "Prison";
+    private static final String CARD_NAME = "Prison";
     private ArrayList<Player> canTarget;
     public Prison(CardDeck cardDeck) {
         super(CARD_NAME, cardDeck);
@@ -15,7 +15,7 @@ public class Prison extends Card {
     public boolean canPlay(Player player) {
         canTarget = new ArrayList<>();
 
-        for (Player target : cardDeck.players) {
+        for (Player target : cardDeck.getPlayers()) {
             if (target != player && target.isAlive()) {
                 boolean targetHasPrisonActive = false;
                 for (Card card : target.getActiveCards()) {
@@ -45,6 +45,6 @@ public class Prison extends Card {
         System.out.println(ConsoleColors.YELLOW + "--- Prison outbreak has happened. ---" + ConsoleColors.RESET);
 
         player.removeActiveCard(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
     }
 }

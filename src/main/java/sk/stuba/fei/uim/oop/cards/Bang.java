@@ -30,7 +30,7 @@ public class Bang extends Card {
         }
 
         player.removeCard(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
     }
 
     private boolean useMissed(Player player) {

@@ -16,6 +16,6 @@ public class Missed extends Card {
     @Override
     public void playCard(Player player) {
         player.getCards().remove(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
     }
 }

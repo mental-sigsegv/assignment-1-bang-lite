@@ -11,7 +11,7 @@ public class StageCoach extends Card {
 
     @Override
     public boolean canPlay(Player player) {
-        return (cardDeck.cards.size() + cardDeck.trash.size()) >= 2;
+        return (cardDeck.getCards().size() + cardDeck.getTrash().size()) >= 2;
     }
     @Override
     public void playCard(Player player, ArrayList<Player> players) {
@@ -21,6 +21,6 @@ public class StageCoach extends Card {
         System.out.println("-> " + player.getName() + " has drawn 2 extra cards");
 
         player.removeCard(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
     }
 }

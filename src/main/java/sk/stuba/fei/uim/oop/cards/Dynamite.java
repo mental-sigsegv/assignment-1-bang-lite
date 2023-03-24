@@ -26,7 +26,7 @@ public class Dynamite extends Card {
         if (Math.random() < 1/8.0) {
             System.out.println(ConsoleColors.RED + "--- " + player.getName() + " has been bombed and lost 3hp! ---" + ConsoleColors.RESET);
             player.removeHealth(3);
-            cardDeck.trash.add(this);
+            cardDeck.getTrash().add(this);
             player.getActiveCards().remove(this);
             return;
         }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Player {
     private final String name;
     private int health;
-    protected final ArrayList<Card> cards;
-    protected final ArrayList<Card> activeCards;
-    protected ArrayList<Card> trashReference;
+    private final ArrayList<Card> cards;
+    private final ArrayList<Card> activeCards;
+    private ArrayList<Card> trashReference;
 
     public Player(String name) {
         this.name = name;

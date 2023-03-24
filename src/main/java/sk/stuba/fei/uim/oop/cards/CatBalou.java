@@ -16,7 +16,7 @@ public class CatBalou extends Card {
     public boolean canPlay(Player player) {
         canTarget = new ArrayList<>();
 
-        for (Player target : cardDeck.players) {
+        for (Player target : cardDeck.getPlayers()) {
             if (target != player && target.isAlive()) {
                 if ((target.getActiveCards().size() + target.getCards().size()) > 0) {
                     canTarget.add(target);
@@ -65,9 +65,9 @@ public class CatBalou extends Card {
             }
         }
 
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
         player.removeCard(this);
-        cardDeck.trash.add(selectCard);
+        cardDeck.getTrash().add(selectCard);
 
         System.out.println("--- " + target.getName() + " lost card " + selectCard.getName() + " ---");
     }

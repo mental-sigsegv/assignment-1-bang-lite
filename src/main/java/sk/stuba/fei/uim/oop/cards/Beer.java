@@ -18,7 +18,7 @@ public class Beer extends Card {
         super.playCard(player, players);
         player.addHealth();
         player.removeCard(this);
-        cardDeck.trash.add(this);
+        cardDeck.getTrash().add(this);
 
         System.out.println("--- " + player.getName() + " has gained 1hp. Player's current hp: " + player.getHealth() + "hp ---");
     }
