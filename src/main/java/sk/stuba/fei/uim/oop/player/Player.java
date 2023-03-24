@@ -22,17 +22,7 @@ public class Player {
     public String getName() {
         return this.name;
     }
-    public boolean isAlive() {
-        return this.health > 0;
-    }
-    public void removeHealth() {
-        this.health--;
-        checkDead();
-    }
-    public void removeHealth(int damage) {
-        this.health -= damage;
-        checkDead();
-    }
+
     public void setTrashReference(ArrayList<Card> trashReference) {
         this.trashReference = trashReference;
     }
@@ -41,6 +31,39 @@ public class Player {
     }
     public int getHealth() {
         return this.health;
+    }
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+    public ArrayList<Card> getActiveCards() {
+        return activeCards;
+    }
+    public ArrayList<Card> getPlayableCards() {
+        ArrayList<Card> playableCards = new ArrayList<>();
+        for (Card card : cards) {
+            if (card.canPlay(this)) {
+                playableCards.add(card);
+            }
+        }
+        return playableCards;
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public Card removeCard(int index) {
+        Card cardToRemove = cards.get(index);
+        cards.remove(index);
+        return cardToRemove;
+    }
+
+    public void removeCard(Card card) {
+        cards.remove(card);
+    }
+    public void removeActiveCard(Card card) {
+        activeCards.remove(card);
     }
     public void checkDead() {
         if (!isAlive()) {
@@ -54,10 +77,17 @@ public class Player {
         cards.clear();
         activeCards.clear();
     }
-    public ArrayList<Card> getCards() {
-        return this.cards;
+    public boolean isAlive() {
+        return this.health > 0;
     }
-
+    public void removeHealth() {
+        this.health--;
+        checkDead();
+    }
+    public void removeHealth(int damage) {
+        this.health -= damage;
+        checkDead();
+    }
     public void printCards() {
         int count;
 
@@ -79,38 +109,6 @@ public class Player {
             }
         }
     }
-
-    public ArrayList<Card> getActiveCards() {
-        return activeCards;
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
-    public Card removeCard(int index) {
-        Card cardToRemove = cards.get(index);
-        cards.remove(index);
-        return cardToRemove;
-    }
-
-    public void removeCard(Card card) {
-        cards.remove(card);
-    }
-    public void removeActiveCard(Card card) {
-        activeCards.remove(card);
-    }
-
-    public ArrayList<Card> getPlayableCards() {
-        ArrayList<Card> playableCards = new ArrayList<>();
-        for (Card card : cards) {
-            if (card.canPlay(this)) {
-                playableCards.add(card);
-            }
-        }
-        return playableCards;
-    }
-
     public void printPlayableCards() {
         System.out.println(ConsoleColors.YELLOW_UNDERLINED + getName() + "'s cards that can be played: " + ConsoleColors.RESET);
         int count = 1;

@@ -21,7 +21,6 @@ public class CardDeck {
         setCards();
         shuffle();
     }
-
     private void setCards() {
         cards.add(new Dynamite(this));
 
@@ -53,16 +52,10 @@ public class CardDeck {
             player.setTrashReference(trash);
         }
     }
-
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
     public ArrayList<Card> getTrash() { return trash;}
-
     public void shuffle() {
         Collections.shuffle(this.cards);
     }
-
     public void fillCardDeckFromTrashCardDeck() {
         System.out.println("--- Card deck has been refilled and shuffled. ---");
         cards.addAll(trash);
