@@ -20,15 +20,6 @@ public class CardDeck {
         setTrashReference();
         setCards();
         shuffle();
-
-        for (int i = 0; i < 4; i++) {
-            cards.add(0, new Bang(this));
-        }
-
-        for (int i = 0; i < 4; i++) {
-            cards.add(0, new Beer(this));
-        }
-
     }
 
     private void setCards() {

@@ -67,8 +67,10 @@ public class BangGame {
         System.out.println(ConsoleColors.RED + "\n--- " + currentPlayer.getName() + "'S TURN ---" + ConsoleColors.RESET);
         System.out.println("-> " + currentPlayer.getName() + " has " + ConsoleColors.CYAN + currentPlayer.getHealth() + " hp." + ConsoleColors.RESET);
 
-        // Check dynamite
-        currentPlayer.checkDynamite(players);
+        // Check dynamite; return if player survived dynamite
+        if (!currentPlayer.checkDynamite(players)) {
+            return;
+        }
 
         // Check prison
         if (!currentPlayer.checkPrison()) {

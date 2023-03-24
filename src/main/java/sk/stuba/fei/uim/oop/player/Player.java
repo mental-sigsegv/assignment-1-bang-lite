@@ -120,13 +120,14 @@ public class Player {
         }
     }
 
-    public void checkDynamite(ArrayList<Player> players) {
+    public boolean checkDynamite(ArrayList<Player> players) {
         for (Card card : activeCards) {
             if (card instanceof Dynamite) {
                 ((Dynamite) card).checkChance(this, players);
-                return;
+                return isAlive();
             }
         }
+        return true;
     }
     public boolean checkPrison() {
         for (Card card : activeCards) {
