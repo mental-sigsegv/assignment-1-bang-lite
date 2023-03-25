@@ -88,7 +88,7 @@ public class BangGame {
         }
 
         // Remove excess cards
-        removeExcessCards(currentPlayer);
+        cardDeck.removeExcessCards(currentPlayer);
     }
 
     private void playCards(Player currentPlayer) {
@@ -134,26 +134,5 @@ public class BangGame {
         }
         return null;
     }
-    private void removeExcessCards(Player currentPlayer) {
-        int numberOfCards = currentPlayer.getCards().size();
-        int maxNumberOfCards = currentPlayer.getHealth();
-        int indexOfCard;
-        Card thrownCard;
 
-        if (numberOfCards > maxNumberOfCards) {
-            System.out.println("\n" + currentPlayer.getName() + " has to throw away " + (numberOfCards-maxNumberOfCards) + " cards. \nChose:");
-
-            while (numberOfCards > maxNumberOfCards) {
-                currentPlayer.printCards();
-                indexOfCard = ZKlavesnice.readInt(ConsoleColors.CYAN + "--- Enter number of card that will be removed. ---" + ConsoleColors.RESET);
-                if (indexOfCard < 1 || indexOfCard > currentPlayer.getCards().size()) {
-                    System.out.println(ConsoleColors.RED + "!!! Try Again! !!!" + ConsoleColors.RESET);
-                    continue;
-                }
-                thrownCard = currentPlayer.removeCard(indexOfCard - 1);
-                cardDeck.getTrash().add(thrownCard);
-                numberOfCards = currentPlayer.getCards().size();
-            }
-        }
-    }
 }

@@ -5,11 +5,12 @@ import java.util.Collections;
 
 import sk.stuba.fei.uim.oop.consoleColors.ConsoleColors;
 import sk.stuba.fei.uim.oop.player.Player;
+import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class CardDeck {
-    private ArrayList<Card> cards;
-    private ArrayList<Card> trash;
-    private ArrayList<Player> players;
+    private final ArrayList<Card> cards;
+    private final ArrayList<Card> trash;
+    private final ArrayList<Player> players;
 
     public CardDeck(ArrayList<Player> players) {
         cards = new ArrayList<>();
@@ -84,5 +85,28 @@ public class CardDeck {
             player.addCard(card);
         }
         System.out.print(ConsoleColors.RESET + "]\n\n");
+    }
+
+    public void removeExcessCards(Player currentPlayer) {
+        int numberOfCards = currentPlayer.getCards().size();
+        int maxNumberOfCards = currentPlayer.getHealth();
+        int indexOfCard;
+        Card thrownCard;
+
+        if (numberOfCards > maxNumberOfCards) {
+            System.out.println("\n" + currentPlayer.getName() + " has to throw away " + (numberOfCards-maxNumberOfCards) + " cards. \nChose:");
+
+            while (numberOfCards > maxNumberOfCards) {
+                currentPlayer.printCards();
+                indexOfCard = ZKlavesnice.readInt(ConsoleColors.CYAN + "--- Enter number of card that will be removed. ---" + ConsoleColors.RESET);
+                if (indexOfCard < 1 || indexOfCard > currentPlayer.getCards().size()) {
+                    System.out.println(ConsoleColors.RED + "!!! Try Again! !!!" + ConsoleColors.RESET);
+                    continue;
+                }
+                thrownCard = currentPlayer.removeCard(indexOfCard - 1);
+                trash.add(thrownCard);
+                numberOfCards = currentPlayer.getCards().size();
+            }
+        }
     }
 }
