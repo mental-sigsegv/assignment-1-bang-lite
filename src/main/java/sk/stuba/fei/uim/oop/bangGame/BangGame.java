@@ -87,8 +87,8 @@ public class BangGame {
             return;
         }
 
-        // Throw away cards
-        throwAwayExcessiveCards(currentPlayer);  // TODO check spelling
+        // Remove excess cards
+        removeExcessCards(currentPlayer);
     }
 
     private void playCards(Player currentPlayer) {
@@ -134,7 +134,7 @@ public class BangGame {
         }
         return null;
     }
-    private void throwAwayExcessiveCards(Player currentPlayer) {
+    private void removeExcessCards(Player currentPlayer) {
         int numberOfCards = currentPlayer.getCards().size();
         int maxNumberOfCards = currentPlayer.getHealth();
         int indexOfCard;
