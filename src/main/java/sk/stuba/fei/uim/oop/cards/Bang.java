@@ -3,8 +3,6 @@ package sk.stuba.fei.uim.oop.cards;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 public class Bang extends Card {
     private static final String CARD_NAME = "Bang";
     public Bang(CardDeck cardDeck) {

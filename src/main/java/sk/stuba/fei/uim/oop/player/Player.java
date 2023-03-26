@@ -48,17 +48,14 @@ public class Player {
         }
         return playableCards;
     }
-
     public void addCard(Card card) {
         cards.add(card);
     }
-
     public Card removeCard(int index) {
         Card cardToRemove = cards.get(index);
         cards.remove(index);
         return cardToRemove;
     }
-
     public void removeCard(Card card) {
         cards.remove(card);
     }
