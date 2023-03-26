@@ -40,12 +40,12 @@ public class CatBalou extends Card {
         if (cardsSize == 0) {
             // Player doesn't have cards on hand
             System.out.println("--- " + target.getName() + " doesn't have any card on hand. Active card will be removed. ---");
-            selectCard = target.getActiveCards().get((int) (Math.random() * activeCardsSize-1));
+            selectCard = target.getActiveCards().get((int) (Math.random() * activeCardsSize));
             target.getActiveCards().remove(selectCard);
         } else if (activeCardsSize == 0) {
             // Player doesn't have any active cards (prison, barrel, dynamite)
             System.out.println("--- " + target.getName() + " doesn't have any active card. Card on hand will be removed. ---");
-            selectCard = target.getCards().get((int) (Math.random() * cardsSize-1));
+            selectCard = target.getCards().get((int) (Math.random() * cardsSize));
             target.getCards().remove(selectCard);
         } else {
             // Player has active cards and cards on hand
